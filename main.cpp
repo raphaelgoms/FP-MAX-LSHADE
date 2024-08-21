@@ -462,7 +462,7 @@ int main(int argc, char **argv)
 
 	g_pop_size = (int)round(g_problem_size * 18);
 	g_memory_size = 6;
-	g_arc_rate = 5.2;
+	g_arc_rate = 0; //5.2;
 	g_p_best_rate = 0.11;
 	g_max_num_evaluations = max_evals; //g_problem_size * 1200;
 	g_elite_rate = elite_rate;
@@ -524,8 +524,12 @@ int main(int argc, char **argv)
 			((FP_MAX_LSHADE*)fp_max_lshade)->elite_type = elite_type;
 			((FP_MAX_LSHADE*)fp_max_lshade)->dm_start_moment = dmStartMoment;
 			((FP_MAX_LSHADE*)fp_max_lshade)->dm_gen_step = dmGenStep;
+			((FP_MAX_LSHADE*)fp_max_lshade)->config = dmGenStep;
+		
+			if(eliteSize==0)
+				eliteSize = (int)std::round(g_elite_rate * g_pop_size);
 
-			eliteSize = (int)std::round(g_elite_rate * g_pop_size);
+			//cout <<" elite size = " << eliteSize << endl;
 			((FP_MAX_LSHADE*)fp_max_lshade)->elite_max_size = eliteSize;
 			((FP_MAX_LSHADE*)fp_max_lshade)->seed = seed; //Rn[rand_idx];
 
@@ -535,6 +539,8 @@ int main(int argc, char **argv)
 			((FP_MAX_LSHADE*)fp_max_lshade)->support = minsup;
 			((FP_MAX_LSHADE*)fp_max_lshade)->discretization_step = discretization_step; //Rn[rand_idx];
 			((FP_MAX_LSHADE*)fp_max_lshade)->cec_year = cec_year;
+			
+			
 
 			//Tempo_CPU_Sistema(&s_CPU_inicial, &s_total_inicial);
 			cost = fp_max_lshade->run();
@@ -631,6 +637,10 @@ int main(int argc, char **argv)
 		cout << "RUN " << (i + 1) << ":" << endl;
 		cout << endl;
 
+		//if (i+1==5){
+		//	continue;
+		//}
+
 		if (seed_type == "fixed") 
 		{
 			int run_id = i;
@@ -674,7 +684,11 @@ int main(int argc, char **argv)
 			((FP_MAX_LSHADE*)fp_max_lshade)->dm_start_moment = dmStartMoment;
 			((FP_MAX_LSHADE*)fp_max_lshade)->dm_gen_step = dmGenStep;
 
-			eliteSize = (int)std::round(g_elite_rate * g_pop_size);
+			if(eliteSize==0)
+				eliteSize = (int)std::round(g_elite_rate * g_pop_size);
+
+			cout <<" elite size = " << eliteSize << endl;
+
 			((FP_MAX_LSHADE*)fp_max_lshade)->elite_max_size = eliteSize;
 			((FP_MAX_LSHADE*)fp_max_lshade)->seed = seed; //Rn[rand_idx];
 
@@ -684,6 +698,11 @@ int main(int argc, char **argv)
 			((FP_MAX_LSHADE*)fp_max_lshade)->support = minsup;
 			((FP_MAX_LSHADE*)fp_max_lshade)->discretization_step = discretization_step; //Rn[rand_idx];
 			((FP_MAX_LSHADE*)fp_max_lshade)->cec_year = cec_year;
+
+			if (analysis_mode){ 
+				((FP_MAX_LSHADE*)fp_max_lshade)->debug_mode = true;
+				((FP_MAX_LSHADE*)fp_max_lshade)->config = arguments;
+			}
 
 			Tempo_CPU_Sistema(&s_CPU_inicial, &s_total_inicial);
 			cost = fp_max_lshade->run();

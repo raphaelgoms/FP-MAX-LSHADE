@@ -9,7 +9,7 @@
 */
 
 #include"de.h"
-// #include "cec13_test_func.cpp"
+// #include "cec14_test_func.cpp"
 //#include "cec22_test_func.cpp"
 
 void Tempo_CPU_Sistema(double *seg_CPU_total, double *seg_sistema_total)
@@ -28,7 +28,7 @@ void Tempo_CPU_Sistema(double *seg_CPU_total, double *seg_sistema_total)
  *seg_sistema_total = (seg_sistema + 0.000001 * mseg_sistema);
 }
 
-void cec13_test_func(double *,double *,int, int,int);
+void cec14_test_func(double *,double *,int, int,int);
 //void cec22_test_func(double *, double *,int,int,int);
 
 int isDirectory(const char *path) {
@@ -38,9 +38,10 @@ int isDirectory(const char *path) {
    return S_ISDIR(statbuf.st_mode);
 }
 
+
 void fprintPopulation(vector <Individual> pop, int generation, string basepath) {
   
-  string fullpath = basepath + "/pop-g" + to_string(generation) + ".csv";
+  string fullpath = basepath + "/population/g" + to_string(generation) + ".csv";
   std::ofstream pop_file;
 
   pop_file.open(fullpath);
@@ -70,7 +71,7 @@ void fprintPopulation(vector <Individual> pop, int generation, string basepath) 
 }
 
 void fprintElite(vector<tuple<Individual, double>> & elite, int generation, string basepath) {
-  string fullpath = basepath + "/elite-g" + to_string(generation) + ".csv";
+  string fullpath = basepath + "/elite/g" + to_string(generation) + ".csv";
   std::ofstream patterns_file;
 
   patterns_file.open(fullpath, std::ofstream::out);
@@ -96,6 +97,7 @@ void fprintElite(vector<tuple<Individual, double>> & elite, int generation, stri
 
   patterns_file.close();
 }
+
 
 
 searchAlgorithm::searchAlgorithm() {
@@ -128,7 +130,7 @@ Fitness searchAlgorithm::evaluateIndividual(Individual individual) {
     //   coco_exp_func(individual, fitness);
     //   return fitness[0];
     // }
-    cec13_test_func(individual, &fitness, problem_size, 1, function_number);
+    cec14_test_func(individual, &fitness, problem_size, 1, function_number);
     return fitness;
 }
 
@@ -147,8 +149,8 @@ void searchAlgorithm::initializeFitnessFunctionParameters() {
     upper_bounds[i] = max_region;
   }
 
-  optimum = 0; // CEC2013
-  //optimum = g_function_number * 100; // -> 2014
+  //optimum = 0; // CEC2013
+  optimum = g_function_number * 100; // -> 2014
   // optimum =  g_optimum[g_function_number - 1]; // -> 2022
   // optimum = f->getMinValue();
 }

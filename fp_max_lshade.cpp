@@ -10,6 +10,24 @@
 
 using namespace std;
 
+double difference(Individual i1, Individual i2) {
+  double diff = 0;
+  for (size_t i = 0; i < g_problem_size; i++) {
+      diff += (i1[i] - i2[i]) * (i1[i] - i2[i]);   
+  }
+  return sqrt(diff);
+}
+
+double computeDiversity(vector<Individual> population) {
+  double diff_acc = 0;
+  for (Individual ind1 : population) {
+    for (Individual ind2 : population) {
+      diff_acc += difference(ind1, ind2);
+    }
+  }
+  return diff_acc / population.size(); 
+}
+
 FP_MAX_LSHADE::FP_MAX_LSHADE(int cec_function_number, PatternSelectionStrategy pattern_sel_strategy, SolutionFillingStrategy filling_strategy)
 {
   // dataset = new Dataset;
@@ -62,39 +80,32 @@ Fitness FP_MAX_LSHADE::run()
   int initial_pop_size = pop_size;
   std::string results_root_path = "";
   std::ofstream pop_costs_file;
+  std::ofstream dm_effect_data_file;
 
   if (debug_mode) {
-    while (!isDirectory((results_root_path + "results").c_str()))
-      results_root_path += "../";
-    results_root_path += "results/generations/FP_MAX_LSHADE/";
+    cout << "===> debug_mode <=== config = "<< config << endl;
+    results_root_path = "/home/raphael/Code/FP-MAX-LSHADE/results/generations/FP-MAX-LSHADE/"
+                      + config 
+                      + "/D" + to_string(g_problem_size) 
+                      + "/cec-f" + to_string(function_number);
 
     string fullpath = results_root_path + "pop-costs.csv";
 
-    int check = mkdir("results/generations",0777);
-    check = mkdir("results/generations/FP_MAX_LSHADE",0777);
+    int check = mkdir("/home/raphael/Code/FP-MAX-LSHADE/results/generations",0777);
+    check = mkdir("/home/raphael/Code/FP-MAX-LSHADE/results/generations/FP-MAX-LSHADE",0777);
+    check = mkdir(("/home/raphael/Code/FP-MAX-LSHADE/results/generations/FP-MAX-LSHADE/"+ config).c_str(),0777);
+    check = mkdir(("/home/raphael/Code/FP-MAX-LSHADE/results/generations/FP-MAX-LSHADE/"+ config + "/D" + to_string(g_problem_size)).c_str(),0777);
     
-   
-    pop_costs_file.open(fullpath, std::ofstream::out | std::ofstream::app);
-
-    for (int j = 0; j < pop_size; j++) {
-      pop_costs_file << "i" << j+1;
-
-      if (j < pop_size - 1)
-        pop_costs_file << ";";
-    }
-    pop_costs_file << endl;
+    check = mkdir(results_root_path.c_str(),0777);
     
-    fprintPopulation(pop, generation, results_root_path + "/generations/FP_MAX_LSHADE/");
+    
 
-    for (int j = 0; j < pop_size; j++) {
-      pop_costs_file << fitness[j]-optimum;
-
-      if (j < pop_size - 1)
-        pop_costs_file << ";";
-    }
-    pop_costs_file << endl;
+    results_root_path += "/s" + to_string(seed);
+    check = mkdir(results_root_path.c_str(),0777);
+    check = mkdir((results_root_path +"/elite").c_str(),0777); // elite
+    check = mkdir((results_root_path +"/population" ).c_str(),0777); // pop
   }
-  
+
 
   Individual bsf_solution = (variable *)malloc(sizeof(variable) * problem_size);
   Fitness bsf_fitness;
@@ -206,10 +217,43 @@ Fitness FP_MAX_LSHADE::run()
 cout << "before while" << endl;
 #endif
 
+  if (debug_mode) {
+    string fullpath = results_root_path + "/pop-costs.csv";
+    pop_costs_file.open(fullpath);
+
+    for (int j = 0; j < pop_size; j++) {
+        pop_costs_file << "i" << j+1;
+
+        if (j < pop_size - 1)
+          pop_costs_file << ";";
+    }
+
+    pop_costs_file << endl;
+
+    fullpath = results_root_path + "/dm-effect.csv";
+    dm_effect_data_file.open(fullpath);
+    dm_effect_data_file << "G;PD;NP;APS;MSR;PSR" << endl; 
+  }
+
   while (nfes < max_num_evaluations)
   {
-    // if (generation > dm_gen_step) 
-    //   break;
+    if (debug_mode)
+    {
+      //fprintPopulation(pop, generation, results_root_path);
+      for (int j = 0; j < initial_pop_size; j++) {
+        if (j < pop_size) {
+          pop_costs_file << fitness[j] - optimum;
+        } else {
+          pop_costs_file << -1;
+        }
+
+        if (j < initial_pop_size - 1)
+            pop_costs_file << ";";
+      }
+      pop_costs_file << endl;
+    }
+
+    dm_effect_data_file << generation << ";";
 
     if (bsf_fitness - optimum < 10e-8) {
       bsf_fitness = optimum;
@@ -240,28 +284,26 @@ cout << "elite handling" << endl;
       }
       // ==========================================
     }
-    else {
-      // elite_transactions.clear();
-      // for (int i = 0; i < pop_size; i++) {
-      //   Transaction_ t;
-
-      //   for (int j = 0; j < problem_size; j++)
-      //     t.push_back(Item{ to_string(j) + "-" + to_string( (int)((pop[i][j] - min_region) / discretization_step) ) });
-
-      //   elite_transactions.push_back(t);
-      // }
-    }
+    
+    // if (debug_mode)
+    //   fprintElite(elite, generation, results_root_path);
       
 #ifdef PRINT_STEP_MARKS
 cout << "pattern mining" << endl;
-#endif
+#endif 
 
+    double pop_diversity = computeDiversity(pop);
+    dm_effect_data_file << pop_diversity << ";";
+
+    bool mining = false;
     double rho_nfes = 0.0;
     bool print_debug = false;
     if (elite_transactions.size()) {
       if (generation >= 1 && generation % dm_gen_step == 0) {
-
+        
         std::set<Pattern> patterns = computeFrequentIntervalSets(support, discretization_step);
+        
+        
         //if (patterns.size()) cout << "Qtde de Padrões = " << patterns.size() << endl;
         patterns_count += patterns.size();
         if (patterns.size()) 
@@ -272,38 +314,76 @@ cout << "pattern mining" << endl;
 
         int pid = 0;
         int i = 0;
-        //cout << ipatterns.size() << endl;
+
+        cout << "Generation " << generation << ":" << endl;
+        cout << "    Population diversity = " << pop_diversity << endl;
+        cout << "    Number of patterns = " << ipatterns.size() << endl;
+
+        if (patterns.size()) {
+          mining = true;
+          dm_effect_data_file << ipatterns.size() << ";";
+        }
         
+        double avg_pattern_size = 0.0;
+
+        cmp_count = 0;
+        succ_count = 0;
         //cout << "makeNewIndividualFromPattern" << endl;
         if (pattern_usage_strategy == INSERT_IN_POP) 
         {
           for (auto &pattern : ipatterns) {
+            cout << "      pattern " << i+1 << " = " << pattern.size();
+            avg_pattern_size += pattern.size();
             if (pop_size - 1 - i > -1) 
             {
+              cmp_count++;
               int idx = sorted_array[pop_size - 1 - i]; // i++;
               Individual newind;
 
-              if (this->filling_strategy == SolutionFillingStrategy::P_BEST)
+              if (this->filling_strategy == SolutionFillingStrategy::P_BEST) {
+                //cout << "P_BEST" << endl;
                 newind = pop[rand() % p_num];
-              else if (this->filling_strategy == SolutionFillingStrategy::MOMENTUM) {
+              } else if (this->filling_strategy == SolutionFillingStrategy::MOMENTUM) {
+                //cout << "MOMENTUM" << endl;
                 newind = pop[idx];
               } else if (this->filling_strategy == SolutionFillingStrategy::RAND) {
+                //cout << "RAND" << endl;
                 newind = makeNewIndividual();
               } else {
+                //cout << "RAND" << endl;
                 newind = makeNewIndividual();
               }
 
+              Individual current = pop[idx];
               pop[idx] = makeNewIndividualFromPattern(pattern, newind); // TODO: Try use p-best
+              if(evaluateIndividual(current) > evaluateIndividual(pop[idx])) {
+                cout << " - success" << endl;
+                succ_count++;
+              } else {
+                cout << " - failure" << endl;
+              }
+
               i++;
             }
             else 
               break;
           }
+
+          if (ipatterns.size()){
+            cout << "    Pattern Success rate = " << 100 * (double)succ_count / cmp_count << "%" << endl;
+            dm_effect_data_file << avg_pattern_size / ipatterns.size() << ";";
+            dm_effect_data_file << (double)succ_count / cmp_count;
+          }
         }
 
-
+        
       }
     }
+    
+    
+    dm_effect_data_file << ";";
+    if (!mining)
+      dm_effect_data_file << ";;";
 
     if (print_debug) cout << "BEST COST = " << bsf_fitness - optimum << endl; 
     if (print_debug) cout << "----" << endl;
@@ -358,7 +438,6 @@ cout << "generation alternation" << endl;
 #endif
 
     generation++;
-    if (debug_mode) fprintPopulation(pop, generation, results_root_path + "/generations/FP_MAX_LSHADE/");
     // evaluate the children's fitness values
     evaluatePopulation(children, children_fitness);
 
@@ -390,6 +469,8 @@ cout << "generation alternation" << endl;
 
     // generation alternation
     int chosed_pattern_idx=0;
+    cmp_count = 0;
+    succ_count = 0;
     for (int i = 0; i < pop_size; i++) { 
       cmp_count++;
       if (children_fitness[i] == fitness[i]) {
@@ -423,6 +504,10 @@ cout << "generation alternation" << endl;
         
       }
     }
+
+    if (mining)
+      cout << "    Pop. Success rate = " << 100 * (double)succ_count / cmp_count << "%" << endl;
+    dm_effect_data_file <<  (double)succ_count / cmp_count << endl;
 
 #ifdef PRINT_STEP_MARKS
 cout << "parameter adaptation" << endl;
@@ -515,8 +600,10 @@ cout << "parameter adaptation" << endl;
 cout << "after while" << endl;
 #endif
 
-  if (debug_mode)
+  if (debug_mode) {
     pop_costs_file.close();
+    dm_effect_data_file.close();
+  }
 
   //success.close();
   //gen_costs.close();

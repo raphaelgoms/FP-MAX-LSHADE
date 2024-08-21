@@ -1,8 +1,1 @@
---fpmaxlshade --crossgen --insert --er 0.1 --gs 309 --h 0.1803 --s 30
---fpmaxlshade --crossgen --insert --er 0.1 --gs 493 --h 0.0809 --s 10
---fpmaxlshade --crossgen --insert --er 0.1 --gs 237 --h 0.3362 --s 40
---fpmaxlshade --crossgen --insert --er 0.2 --gs 229 --h 0.3801 --s 40
---fpmaxlshade --crossgen --insert --er 0.1 --gs 309 --h 0.1803 --s 30 --nvar 30
---fpmaxlshade --crossgen --insert --er 0.1 --gs 493 --h 0.0809 --s 10 --nvar 30
---fpmaxlshade --crossgen --insert --er 0.1 --gs 237 --h 0.3362 --s 40 --nvar 30
---fpmaxlshade --crossgen --insert --er 0.2 --gs 229 --h 0.3801 --s 40 --nvar 30
+--fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 10 --sf --a --nvar 30 --rand

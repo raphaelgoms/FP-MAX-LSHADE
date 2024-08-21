@@ -3,7 +3,7 @@
 #include <time.h>
 #include <fstream>
 #include <random>
-//#include "cec13_test_func.cpp"
+//#include "cec14_test_func.cpp"
 
 #include "nl_shade_lbc.h"
 
@@ -73,7 +73,7 @@ void qSort2int(double* Mass, int* Mass2, int low, int high)
     if(i<high)  qSort2int(Mass,Mass2,i,high);
 }
 
-void cec13_test_func(double *, double *,int,int,int);
+void cec14_test_func(double *, double *,int,int,int);
 //double *OShift,*M,*y,*z,*x_bound;
 //int ini_flag=0,n_flag,func_flag,*SS;
 int GNVars;
@@ -160,7 +160,7 @@ void FindLimits(double* Ind, double* Parent,int CurNVars,double CurLeft, double 
 
 double cec_22_(double* HostVector,int func_num)
 {
-	cec13_test_func(HostVector, tempF, GNVars, 1, func_num);
+	cec14_test_func(HostVector, tempF, GNVars, 1, func_num);
     NFEval++;
     return tempF[0];
 }

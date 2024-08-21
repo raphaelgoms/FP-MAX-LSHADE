@@ -26,7 +26,7 @@
 #include <mlpack/core/cv/metrics/silhouette_score.hpp>
 
 //the code of test functions to be optimized
-//#include "RB_cec13_test_func.cpp"
+//#include "RB_cec14_test_func.cpp"
 
 using namespace mlpack::kmeans;
 using namespace mlpack::cv;
@@ -158,7 +158,7 @@ void _qSort2intint(double* mass, int* mass2, int low, int high)
         _qSort2intint(mass,mass2,i,high);
 }
 
-void cec13_test_func(double *, double *,int,int,int);
+void cec14_test_func(double *, double *,int,int,int);
 //double *OShift,*M,*y,*z,*x_bound;
 //int ini_flag=0,n_flag,func_flag,*SS;
 
@@ -295,7 +295,7 @@ double _cec_22_(double* HostVector,int func_num)
 	int nx = dimensionality;	
 	int mx = 1;
 	
-	cec13_test_func(HostVector, _tempF, nx, mx,func_num);
+	cec14_test_func(HostVector, _tempF, nx, mx,func_num);
     _NFEval++;
     return _tempF[0];
 }

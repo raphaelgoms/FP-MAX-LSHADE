@@ -217,6 +217,8 @@ public:
     BY_GENERATION,
     CROSS_GENERATION
   };
+
+  string config = "";
 };
 
 class LSHADE: public searchAlgorithm {

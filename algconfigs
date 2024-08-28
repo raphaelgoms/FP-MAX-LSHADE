@@ -1,1 +1,2 @@
---fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 10 --sf --a --nvar 30 --rand
+--lshade --sf --a --nvar 100
+--fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 100

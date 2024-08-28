@@ -8,15 +8,18 @@
 #include "de.h"
 using namespace std;
 
-LSHADE::LSHADE(int cec_function_number )
+FP_MAX_LSHADE::FP_MAX_LSHADE(int cec_function_number, 
+  PatternSelectionStrategy pattern_sel_strategy, 
+  SolutionFillingStrategy filling_strategy)
 {
   this->function_number = cec_function_number;
+  this->pattern_sel_strategy = pattern_sel_strategy;
+  this->filling_strategy = filling_strategy;
 }
 
 
-Fitness LSHADE::run()
+Fitness FP_MAX_LSHADE::run()
 {
-  //cout << "maxtime = " << maxtime << endl;
   double s_CPU_inicial, s_CPU_final;
   double s_total_inicial, s_total_final;
 
@@ -24,14 +27,8 @@ Fitness LSHADE::run()
   
 
   this->used_gen_count = 0;
-  // cout << scientific << setprecision(8);
   initializeParameters();
   setSHADEParameters();
-
-  // cout << pop_size << endl;
-  // cout << arc_size << endl;
-  // cout << p_best_rate << endl;
-  // cout << memory_size << endl;
 
   int generation = 1;
 
@@ -79,11 +76,6 @@ Fitness LSHADE::run()
       for (int j = 0; j < problem_size; j++)
         bsf_solution[j] = pop[i][j];
     }
-
-    // if (nfes % 1000 == 0) {
-    //   //      cout << nfes << " " << bsf_fitness - optimum << endl;
-    //   cout << bsf_fitness - optimum << endl;
-    // }
 
     if (nfes >= max_num_evaluations)
       break;
@@ -136,26 +128,26 @@ Fitness LSHADE::run()
 
   std::ofstream success, clusters_stats, gen_costs, conv_speed;
 
-  // success.open("stats/success_rate", std::ofstream::out | std::ofstream::app);
-  // gen_costs.open("stats/gen_costs", std::ofstream::out | std::ofstream::app);
-  // clusters_stats.open("stats/clusters_stats", std::ofstream::out | std::ofstream::app);
-  // conv_speed.open("stats/conv_speed", std::ofstream::out | std::ofstream::app);
-
   std::string results_root_path = "";
   std::ofstream pop_costs_file;
   std::ofstream dm_effect_data_file;
 
   if (debug_mode) {
-    results_root_path = "/home/raphael/Code/FP-MAX-LSHADE/results/generations/LSHADE/D" 
-                      + to_string(g_problem_size) 
+    results_root_path = "/home/raphael/Code/FP-MAX-LSHADE/results/generations/FP-MAX-LSHADE/"
+                      + config 
+                      + "/D" + to_string(g_problem_size) 
                       + "/cec-f" + to_string(function_number);
 
     int check = mkdir("/home/raphael/Code/FP-MAX-LSHADE/results/generations",0777);
-    check = mkdir("/home/raphael/Code/FP-MAX-LSHADE/results/generations/LSHADE",0777);
-    check = mkdir(("/home/raphael/Code/FP-MAX-LSHADE/results/generations/LSHADE/D" + to_string(g_problem_size)).c_str(),0777);
-    check = mkdir(results_root_path.c_str(),0777);    
+    check = mkdir("/home/raphael/Code/FP-MAX-LSHADE/results/generations/FP-MAX-LSHADE",0777);
+    check = mkdir(("/home/raphael/Code/FP-MAX-LSHADE/results/generations/FP-MAX-LSHADE/"+ config).c_str(),0777);
+    check = mkdir(("/home/raphael/Code/FP-MAX-LSHADE/results/generations/FP-MAX-LSHADE/"+ config + "/D" + to_string(g_problem_size)).c_str(),0777);
+    
+    check = mkdir(results_root_path.c_str(),0777);
+
     results_root_path += "/s" + to_string(seed);
     check = mkdir(results_root_path.c_str(),0777);
+    check = mkdir((results_root_path +"/elite").c_str(),0777); // elite
     check = mkdir((results_root_path +"/population" ).c_str(),0777); // pop
 
     string fullpath = results_root_path + "/pop-costs.csv";
@@ -166,21 +158,21 @@ Fitness LSHADE::run()
 
         if (j < pop_size - 1)
           pop_costs_file << ";";
-    } 
+    }
 
     pop_costs_file << endl;
 
     fullpath = results_root_path + "/dm-effect.csv";
     dm_effect_data_file.open(fullpath);
-    dm_effect_data_file << "G;PD;PSR" << endl; 
+    dm_effect_data_file << "G;PD;NP;APS;MSR;PSR" << endl; 
   }
 
   // main loop
   while (nfes < max_num_evaluations)
   {
-    if (debug_mode) 
+    if (debug_mode)
     {
-      fprintPopulation(pop, generation, results_root_path);
+      //fprintPopulation(pop, generation, results_root_path);
       for (int j = 0; j < initial_pop_size; j++) {
         if (j < pop_size) {
           pop_costs_file << fitness[j] - optimum;
@@ -193,15 +185,12 @@ Fitness LSHADE::run()
       }
       pop_costs_file << endl;
 
-      dm_effect_data_file << generation << ";";
-      double pop_diversity = computeDiversity(pop);
-      dm_effect_data_file << pop_diversity << ";";
-
+      dm_effect_data_file << generation << ";" << computeDiversity(pop) << ";";
     }
 
     if (bsf_fitness - optimum < 10e-8) {
-        //cout << "cfo: " << nfes << endl;
-        break;
+      bsf_fitness = optimum;
+      break;
     }
 
     this->used_gen_count++;
@@ -212,8 +201,26 @@ Fitness LSHADE::run()
       temp_fit[i] = fitness[i];
     sortIndexWithQuickSort(&temp_fit[0], 0, pop_size - 1, sorted_array);
 
-    //updateElite(pop, sorted_array, temp_fit);
-    //if (debug_mode) fprintElite(elite, generation, results_root_path);
+    updateElite(pop, sorted_array, temp_fit);
+    
+    // MINING //////////////////////
+    bool hasPatterns = false;
+    std::set<Pattern> patterns = computeFrequentIntervalSets(support, discretization_step);
+    vector<interval_pattern> ipatterns = computePatternBounds(patterns, discretization_step);
+
+    if (pattern_usage_strategy == INSERT_IN_POP) {
+      int insertionsCount = 0;
+      for (auto ipatt : ipatterns) {
+        Individual new_ind = makeNewIndividualFromPattern(ipatt);
+        pop[sorted_array[g_pop_size - 1 - insertionsCount++]] = new_ind;
+        if (insertionsCount > g_pop_size * 0.2)
+          break;
+      }
+    }
+    ////////////////////////////////
+    dm_effect_data_file << ";";
+    if (!hasPatterns)
+      dm_effect_data_file << ";;";
 
     for (int target = 0; target < pop_size; target++)
     {
@@ -260,9 +267,6 @@ Fitness LSHADE::run()
     for (int i = 0; i < pop_size; i++)
     {
       nfes++;
-      // if (nfes%5000==0) {
-      //     conv_speed << bsf_fitness - optimum << ";";
-      // }
       mean_gen_cost += fitness[i];
       // following the rules of CEC 2014 real parameter competition,
       // if the gap between the error values of the best solution found and the optimal solution was 10^{−8} or smaller,
@@ -277,10 +281,6 @@ Fitness LSHADE::run()
           bsf_solution[j] = children[i][j];
       }
 
-      // if (nfes % 1000 == 0) {
-      // //      cout << nfes << " " << bsf_fitness - optimum << endl;
-      // 	cout << bsf_fitness - optimum << endl;
-      // }
       if (nfes >= max_num_evaluations)
         break;
     }
@@ -337,7 +337,6 @@ Fitness LSHADE::run()
     }
 
     num_success_params = success_sf.size();
-    //success << num_success_params << endl;
 
     // if numeber of successful parameters > 0, historical memories are updated
     if (num_success_params > 0)
@@ -407,10 +406,6 @@ Fitness LSHADE::run()
 
   }
 
-  // success.close();
-  // gen_costs.close();
-  // conv_speed.close();
-
   if (debug_mode) { 
     pop_costs_file.close();
     dm_effect_data_file.close();
@@ -422,7 +417,7 @@ Fitness LSHADE::run()
   return bsf_fitness - optimum;
 }
 
-void LSHADE::operateCurrentToPBest1BinWithArchive(const vector<Individual> &pop, Individual child, int &target, int &p_best_individual, variable &scaling_factor, variable &cross_rate, const vector<Individual> &archive, int &arc_ind_count)
+void FP_MAX_LSHADE::operateCurrentToPBest1BinWithArchive(const vector<Individual> &pop, Individual child, int &target, int &p_best_individual, variable &scaling_factor, variable &cross_rate, const vector<Individual> &archive, int &arc_ind_count)
 {
   int r1, r2;
 
@@ -471,7 +466,7 @@ void LSHADE::operateCurrentToPBest1BinWithArchive(const vector<Individual> &pop,
   modifySolutionWithParentMedium(child, pop[target]);
 }
 
-void LSHADE::reducePopulationWithSort(vector<Individual> &pop, vector<Fitness> &fitness)
+void FP_MAX_LSHADE::reducePopulationWithSort(vector<Individual> &pop, vector<Fitness> &fitness)
 {
   int worst_ind;
 
@@ -490,7 +485,7 @@ void LSHADE::reducePopulationWithSort(vector<Individual> &pop, vector<Fitness> &
   }
 }
 
-void LSHADE::setSHADEParameters()
+void FP_MAX_LSHADE::setSHADEParameters()
 {
   arc_rate = g_arc_rate;
   arc_size = (int)round(pop_size * arc_rate);
@@ -498,22 +493,16 @@ void LSHADE::setSHADEParameters()
   memory_size = g_memory_size;
 }
 
-void LSHADE::updateElite(vector<Individual> & curr_pop, int* sorted_indexes, double* fitness)
+void FP_MAX_LSHADE::updateElite(vector<Individual> & curr_pop, int* sorted_indexes, double* fitness)
 {
     bool has_update = false;
     int max = elite_max_size > curr_pop.size() ? curr_pop.size() : elite_max_size;
 
     if (elite.size() == 0) {
-      for (int i = 0; i < max; i++)
-      {
-        // for (int j = 0; j < g_problem_size; j++)
-        // {
-        //   cout << curr_pop[sorted_indexes[i]][j];
-        //   if (j < g_problem_size - 1) cout << ";";
-        // }
-        // cout << endl;
-        
-        elite.push_back({ curr_pop[sorted_indexes[i]], fitness[i] });
+      for (int i = 0; i < max; i++) {
+        Individual ind = curr_pop[sorted_indexes[i]];
+        elite.push_back({ ind, fitness[i] });
+        elite_transactions.push_back(transformToTransaction(ind));
       }
     } 
     else 
@@ -521,9 +510,12 @@ void LSHADE::updateElite(vector<Individual> & curr_pop, int* sorted_indexes, dou
       for (int i = 0; i < max; i++)
       {
         std::vector<tuple<Individual, double>>::iterator elite_member = elite.end();
+        std::vector<set<int>>::iterator elite_t_member = elite_transactions.end();
+
         int pos = elite.size();
         while (elite_member != elite.begin() && fitness[i] < get<1>(*(elite_member-1))) {
             elite_member--;
+            elite_t_member--;
             pos--;
         }
 
@@ -533,24 +525,114 @@ void LSHADE::updateElite(vector<Individual> & curr_pop, int* sorted_indexes, dou
           Fitness fit = fitness[i];
 
           elite.insert(elite_member, { ind , fit });
+          elite_transactions.insert(elite_t_member, transformToTransaction(ind));
+
           has_update = true;
         } 
         else if (pos < elite_max_size)
         {
-          elite.push_back({ curr_pop[sorted_indexes[i]], fitness[i] });
+          Individual ind = curr_pop[sorted_indexes[i]];
+          elite.push_back({ ind , fitness[i] });
+          elite_transactions.push_back(transformToTransaction(ind));
         }
      }
 
     }
 
    
-    if (has_update) {
-      //cout << "elite updated" << endl;
-      if (elite.size() > elite_max_size)
+    if (has_update && elite.size() > elite_max_size) {
         elite.resize(elite_max_size);
-    } else {
-      //cout << "elite not updated" << endl;
+        elite_transactions.resize(elite_max_size);
     }
     
 }
 
+set<int> FP_MAX_LSHADE::transformToTransaction(Individual ind) {
+  set<int> t;
+
+  for (int j = 0; j < problem_size; j++) {
+    Item itm = to_string(j) + "-" + to_string( (int)((ind[j] - min_region) / discretization_step) );
+    
+    if (!mapIntervalToItemID.count(itm)) {
+      mapIntervalToItemID[itm] = itemID;
+      mapItemIDToInterval[itemID] = itm;
+      itemID++;
+    }
+
+    t.insert(mapIntervalToItemID[itm]);
+  }
+
+  return t;
+}
+
+std::set<Pattern> FP_MAX_LSHADE::computeFrequentIntervalSets(int support, double discretizationStep)
+{
+  std::set<Pattern> patterns;
+  Dataset* dataset = new Dataset;
+	for(set<int> transaction: elite_transactions)
+    dataset->push_back(transaction);
+
+	FISet* freq_itemsets = fpmax(dataset, support);  
+  for (FISet::iterator it=freq_itemsets->begin(); it!=freq_itemsets->end(); ++it) {
+    set<Item> its;
+    for (set<int>::iterator it2=it->begin(); it2!=it->end(); ++it2)
+      its.insert(mapItemIDToInterval[*it2]);
+    patterns.insert({ its, it->support() });
+  }
+
+  delete dataset;
+  delete freq_itemsets;
+
+  return patterns;
+}
+
+
+vector<interval_pattern> FP_MAX_LSHADE::computePatternBounds(const std::set<Pattern>& patterns, double discretizationStep)
+{
+    double lb, ub;
+    vector<interval_pattern> ipatterns;
+
+    for (auto p : patterns)
+    {
+        map<int, tuple<double, double>> intervalPattern;
+        set<Item> itemset = get<0>(p);
+        
+        for (Item i : itemset) {
+            std::size_t pos = i.find("-");  
+            
+            string index = i.substr(0, pos);
+            string _interval = i.substr(pos+1);
+
+            int attribute = stoi(index);
+            int interval = stoi(_interval);
+            
+            lb = min_region + (interval) * discretizationStep;
+            ub = min_region + (interval + 1) * discretizationStep;
+
+            intervalPattern.insert({ attribute, { lb, ub } });
+        }
+
+        if (intervalPattern.size())
+          ipatterns.push_back(intervalPattern);
+    }
+
+    return ipatterns;
+}
+
+Individual FP_MAX_LSHADE::makeNewIndividualFromPattern(interval_pattern pattern, Individual base)
+{
+  Individual newOne = new double[g_problem_size];
+  for (size_t k = 0; k < g_problem_size; k++) {
+    if (pattern.find(k) != pattern.end()) {
+      double lower = get<0>(pattern[k]);
+      double upper = get<1>(pattern[k]);
+      newOne[k] = ((upper - lower) * randDouble()) + lower;
+    } else {
+      if (base)
+        newOne[k] = base[k];
+      else
+        newOne[k] = ((upper_bounds[k] - lower_bounds[k]) * randDouble()) + lower_bounds[k];
+    }  
+  }
+  return newOne;
+}

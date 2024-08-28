@@ -83,7 +83,8 @@ extern double g_elite_rate;
 
 //void cec22_test_func(double *, double * ,int,int,int);
 //void cec21_basic_func(double *, double * ,int,int,int);
-
+double difference(Individual i1, Individual i2);
+double computeDiversity(vector<Individual> population);
 void fprintPopulation(vector <Individual> pop, int generation, string basepath);
 void fprintElite(vector<tuple<Individual, double>> & elite, int generation, string basepath);
 
@@ -223,100 +224,159 @@ public:
 
 class LSHADE: public searchAlgorithm {
 public:
+  int arc_size;
+  double arc_rate;
+  variable p_best_rate;
+  int memory_size;
+  int reduction_ind_num;
+  int elite_max_size = 180;
+  vector<tuple<Individual, double>> elite;
+  
   LSHADE(int cec_function_number);
+  
   virtual Fitness run();
+  
   void setSHADEParameters();
+  
   void reducePopulationWithSort(vector<Individual> &pop, vector<Fitness> &fitness);
-  void operateCurrentToPBest1BinWithArchive(const vector<Individual> &pop, Individual child, int &target, int &p_best_individual, 
-    variable &scaling_factor, variable &cross_rate, const vector<Individual> &archive, int &arc_ind_count);
+  
+  void operateCurrentToPBest1BinWithArchive(const vector<Individual> &pop, Individual child, 
+    int &target, int &p_best_individual, 
+    variable &scaling_factor, variable &cross_rate, 
+    const vector<Individual> &archive, int &arc_ind_count);
+  
   void updateElite(vector<Individual> & curr_pop, int* sorted_indexes, double *fitness);
+};
 
+class FP_MAX_LSHADE: public searchAlgorithmWithMining {
+public:
+  
   int arc_size;
   double arc_rate;
   variable p_best_rate;
   int memory_size;
   int reduction_ind_num;
 
-  vector<tuple<Individual, double>> elite;
+  string elite_type;
   int elite_max_size = 180;
-};
+  vector<tuple<Individual, double>> elite;
+  vector<set<int>> elite_transactions;
+  map<string, int> mapIntervalToItemID;
+  map<int, string> mapItemIDToInterval;
 
-class FP_MAX_LSHADE: public searchAlgorithmWithMining {
-public:
+  int dm_start_gen;
+  int dm_gen_step;
+  int number_of_patterns;
+  string mining_algorithm;
+  PatternSelectionStrategy pattern_sel_strategy;
+  PatternUsageStrategy pattern_usage_strategy;
+  SolutionFillingStrategy filling_strategy;
+  int itemID=1;
+
+  int support;
+  double discretization_step;
   
   FP_MAX_LSHADE(int cec_function_number, 
     PatternSelectionStrategy pattern_sel_strategy = RANDOM, 
     SolutionFillingStrategy filling_strategy = P_BEST);
 
   virtual Fitness run();
-
+  
   void setSHADEParameters();
 
   void reducePopulationWithSort(vector<Individual> &pop, vector<Fitness> &fitness);
 
-  void operateCurrentToPBest1BinWithArchive(const vector<Individual> &pop, Individual child, int &target, int &p_best_individual, 
-        variable &scaling_factor, variable &cross_rate, const vector<Individual> &archive, int &arc_ind_count);
-  
-  void operateCurrentToPBest1BinWithArchiveAndXPattern(const vector<Individual>& pop, Individual child, int& target, int& p_best_individual, 
-        variable& scaling_factor, variable& cross_rate, const vector<Individual>& archive, int& arc_ind_count, interval_pattern pattern);
-  
-  void operateCurrentToPBest1BinWithArchiveAndXPatternCross(const vector<Individual>& pop, Individual child, int& target, int& p_best_individual, 
-        variable& scaling_factor, variable& cross_rate, const vector<Individual>& archive, int& arc_ind_count, map<int,double> pattern);
-  
+  void operateCurrentToPBest1BinWithArchive(const vector<Individual> &pop, Individual child, 
+    int &target, int &p_best_individual, variable &scaling_factor, variable &cross_rate, 
+    const vector<Individual> &archive, int &arc_ind_count);
+
   void updateElite(vector<Individual> & curr_pop, int* sorted_indexes, double *fitness);
-
-  std::set<Pattern> computeFrequentIntervalSets(int support, double discretizationStep);
-
-  Individual makeNewIndividualFromPattern(interval_pattern pattern, Individual bestInd);
-
-  vector<interval_pattern> computePatternBounds(const std::set<Pattern>& frequentItemsets, double discretizationStep);
 
   set<int> transformToTransaction(Individual ind);
 
-  double getValueFromInterval(tuple<double, double> bounds);
-  
-  //Dataset* dataset = new Dataset;
+  std::set<Pattern> computeFrequentIntervalSets(int support, double discretizationStep);
 
-  int itemID=1;
-  int arc_size;
-  double arc_rate;
-  variable p_best_rate;
-  int memory_size;
-  int reduction_ind_num;
+  vector<interval_pattern> computePatternBounds(const std::set<Pattern>& frequentItemsets, double discretizationStep);
 
-  int dm_start_moment;
-  int dm_gen_step;
-
-  // new atributes:
-  int support = 10;
-  double discretization_step = 0.1;
-
-  int number_of_patterns = 0;
-  string mining_algorithm = "";
-  float clusters_count_min = INFINITY;
-  float clusters_count_max = 0;
-  float clusters_count_avg = 0;
-  PatternUsageStrategy pattern_usage_strategy = MUTATION_SCHEME;
-  PatternSelectionStrategy pattern_sel_strategy = RANDOM;
-  SolutionFillingStrategy filling_strategy = P_BEST; 
-  EliteType elite_type = BY_GENERATION;
-
-  vector<tuple<Individual, double>> elite;
-  vector<set<int>> elite_transactions;
-  map<string, int> mapIntervalToItemID;
-  map<int, string> mapItemIDToInterval;
-  double disc_step = 0.1;
-
-  int elite_max_size = 130;
-  double best_cost_found = 1e+10;
-
-  double patterns_count = 0;
-  double patterns_usage_count = 0;
-  double patterns_count_avg = 0;
-
-  int seed;
-  mutable std::mt19937    m_generator;
+  Individual makeNewIndividualFromPattern(interval_pattern pattern, Individual base = nullptr);
 };
+
+// class FP_MAX_LSHADE: public searchAlgorithmWithMining {
+// public:
+  
+//   FP_MAX_LSHADE(int cec_function_number, 
+//     PatternSelectionStrategy pattern_sel_strategy = RANDOM, 
+//     SolutionFillingStrategy filling_strategy = P_BEST);
+
+//   virtual Fitness run();
+
+//   void setSHADEParameters();
+
+//   void reducePopulationWithSort(vector<Individual> &pop, vector<Fitness> &fitness);
+
+//   void operateCurrentToPBest1BinWithArchive(const vector<Individual> &pop, Individual child, int &target, int &p_best_individual, 
+//         variable &scaling_factor, variable &cross_rate, const vector<Individual> &archive, int &arc_ind_count);
+  
+//   void operateCurrentToPBest1BinWithArchiveAndXPattern(const vector<Individual>& pop, Individual child, int& target, int& p_best_individual, 
+//         variable& scaling_factor, variable& cross_rate, const vector<Individual>& archive, int& arc_ind_count, interval_pattern pattern);
+  
+//   void operateCurrentToPBest1BinWithArchiveAndXPatternCross(const vector<Individual>& pop, Individual child, int& target, int& p_best_individual, 
+//         variable& scaling_factor, variable& cross_rate, const vector<Individual>& archive, int& arc_ind_count, map<int,double> pattern);
+  
+//   void updateElite(vector<Individual> & curr_pop, int* sorted_indexes, double *fitness);
+
+//   std::set<Pattern> computeFrequentIntervalSets(int support, double discretizationStep);
+
+//   Individual makeNewIndividualFromPattern(interval_pattern pattern, Individual bestInd);
+
+//   vector<interval_pattern> computePatternBounds(const std::set<Pattern>& frequentItemsets, double discretizationStep);
+
+//   set<int> transformToTransaction(Individual ind);
+
+//   double getValueFromInterval(tuple<double, double> bounds);
+  
+//   //Dataset* dataset = new Dataset;
+
+//   int itemID=1;
+//   int arc_size;
+//   double arc_rate;
+//   variable p_best_rate;
+//   int memory_size;
+//   int reduction_ind_num;
+
+//   int dm_start_moment;
+//   int dm_gen_step;
+
+//   // new atributes:
+//   int support = 10;
+//   double discretization_step = 0.1;
+
+//   int number_of_patterns = 0;
+//   string mining_algorithm = "";
+//   float clusters_count_min = INFINITY;
+//   float clusters_count_max = 0;
+//   float clusters_count_avg = 0;
+//   PatternUsageStrategy pattern_usage_strategy = MUTATION_SCHEME;
+//   PatternSelectionStrategy pattern_sel_strategy = RANDOM;
+//   SolutionFillingStrategy filling_strategy = P_BEST; 
+//   EliteType elite_type = BY_GENERATION;
+
+//   vector<tuple<Individual, double>> elite;
+//   vector<set<int>> elite_transactions;
+//   map<string, int> mapIntervalToItemID;
+//   map<int, string> mapItemIDToInterval;
+//   double disc_step = 0.1;
+
+//   int elite_max_size = 130;
+//   double best_cost_found = 1e+10;
+
+//   double patterns_count = 0;
+//   double patterns_usage_count = 0;
+//   double patterns_count_avg = 0;
+
+//   int seed;
+//   mutable std::mt19937    m_generator;
+// };
 
 class KMEANS_LSHADE: public searchAlgorithmWithMining {
 public:

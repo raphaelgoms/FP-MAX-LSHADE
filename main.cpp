@@ -522,7 +522,7 @@ int main(int argc, char **argv)
 			((FP_MAX_LSHADE*)fp_max_lshade)->pattern_usage_strategy = pattern_use_strategy;
 			((FP_MAX_LSHADE*)fp_max_lshade)->filling_strategy = filling_strategy;
 			((FP_MAX_LSHADE*)fp_max_lshade)->elite_type = elite_type;
-			((FP_MAX_LSHADE*)fp_max_lshade)->dm_start_moment = dmStartMoment;
+			((FP_MAX_LSHADE*)fp_max_lshade)->dm_start_gen = dmStartMoment;
 			((FP_MAX_LSHADE*)fp_max_lshade)->dm_gen_step = dmGenStep;
 			((FP_MAX_LSHADE*)fp_max_lshade)->config = dmGenStep;
 		
@@ -662,6 +662,10 @@ int main(int argc, char **argv)
 			lshade->seed = seed;
 			lshade->cec_year = cec_year;
 			lshade->maxtime = maxtime;
+			
+			if (analysis_mode){ 
+				((LSHADE*)lshade)->debug_mode = true;
+			}
 
 			Tempo_CPU_Sistema(&s_CPU_inicial, &s_total_inicial);
 			cost = lshade->run();
@@ -681,7 +685,7 @@ int main(int argc, char **argv)
 			((FP_MAX_LSHADE*)fp_max_lshade)->pattern_usage_strategy = pattern_use_strategy;
 			((FP_MAX_LSHADE*)fp_max_lshade)->filling_strategy = filling_strategy;
 			((FP_MAX_LSHADE*)fp_max_lshade)->elite_type = elite_type;
-			((FP_MAX_LSHADE*)fp_max_lshade)->dm_start_moment = dmStartMoment;
+			((FP_MAX_LSHADE*)fp_max_lshade)->dm_start_gen = dmStartMoment;
 			((FP_MAX_LSHADE*)fp_max_lshade)->dm_gen_step = dmGenStep;
 
 			if(eliteSize==0)

@@ -687,3 +687,216 @@
 [qua 21 ago 2024 17:10:15 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 30 --sf --a --nvar 30 --rand
 [qua 21 ago 2024 17:10:48 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 10 --sf --a --nvar 30 --rand
 [qua 21 ago 2024 17:10:57 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 10 --sf --a --nvar 30 --rand
+[qui 22 ago 2024 12:55:55 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 10 --sf --a --nvar 30 --momentum
+[qui 22 ago 2024 12:56:04 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 10 --sf --a --nvar 30 --momentum
+[qui 22 ago 2024 13:04:02 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 10 --sf --a --nvar 30 --rand
+[qui 22 ago 2024 13:04:11 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 10 --sf --a --nvar 30 --rand
+[qui 22 ago 2024 13:04:36 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 10 --sf --a --nvar 30 --rand
+[qui 22 ago 2024 13:04:45 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 10 --sf --a --nvar 30 --rand
+[qui 22 ago 2024 17:29:14 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 30 --rand
+[qui 22 ago 2024 17:29:23 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 30 --rand
+[qui 22 ago 2024 17:55:14 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 100 --rand
+[qui 22 ago 2024 18:00:31 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 100 --rand
+[qui 22 ago 2024 18:22:03 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 100 --rand --halphpop
+[qui 22 ago 2024 18:27:51 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 100 --rand --halphpop
+[sex 23 ago 2024 10:55:31 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 100 --rand --25percpop
+[sex 23 ago 2024 11:01:12 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 100 --rand --25percpop
+[sex 23 ago 2024 11:07:39 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 100 --rand --10percpop
+[sex 23 ago 2024 11:13:32 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 100 --rand --10percpop
+[sex 23 ago 2024 11:14:54 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 100 --rand --0percpop
+[sex 23 ago 2024 11:20:55 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 100 --rand --0percpop
+[sex 23 ago 2024 11:24:07 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 100 --rand --0percpop
+[sex 23 ago 2024 11:30:03 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 100 --rand --0percpop
+[sex 23 ago 2024 11:40:22 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 100 --rand --0percpop
+[sex 23 ago 2024 11:46:14 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 100 --rand --0percpop
+[sex 23 ago 2024 12:44:44 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 100 --momentum --10percpop
+[sex 23 ago 2024 12:50:39 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 100 --momentum --10percpop
+[sex 23 ago 2024 12:57:25 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 100 --pbest --10percpop
+[sex 23 ago 2024 12:57:32 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 100 --pbest --10percpop
+[sex 23 ago 2024 13:02:26 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 100 --pbest --10percpop
+[sex 23 ago 2024 13:08:17 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 100 --pbest --10percpop
+[sex 23 ago 2024 13:29:05 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 50 --sf --a --nvar 100 --rand --10percpop
+[sex 23 ago 2024 13:44:59 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 50 --sf --a --nvar 100 --rand --10percpop
+[sex 23 ago 2024 13:48:18 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 80 --sf --a --nvar 100 --rand --10percpop
+[sex 23 ago 2024 14:05:53 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 80 --sf --a --nvar 100 --rand --10percpop
+[sex 23 ago 2024 14:59:12 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 30 --sf --a --nvar 100 --rand --10percpop
+[sex 23 ago 2024 15:14:56 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 100 --rand --10percpop
+[sex 23 ago 2024 15:21:04 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 100 --rand --10percpop
+[sex 23 ago 2024 15:25:06 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 90 --sf --a --nvar 100 --rand --10percpop
+[sex 23 ago 2024 15:31:36 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 90 --sf --a --nvar 100 --rand --10percpop
+[sex 23 ago 2024 15:37:42 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 100 --rand --10percpop
+[sex 23 ago 2024 15:43:38 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 100 --rand --10percpop
+[sex 23 ago 2024 15:45:39 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 30 --sf --a --nvar 100 --rand --10percpop
+[sex 23 ago 2024 16:06:44 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 30 --sf --a --nvar 100 --rand --10percpop
+[sex 23 ago 2024 16:07:02 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 90 --sf --a --nvar 100 --rand --10percpop
+[sex 23 ago 2024 16:15:19 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 90 --sf --a --nvar 100 --rand --10percpop
+[sex 23 ago 2024 16:18:58 -03]: Iniciou a exec. para a configuração --lshade --sf --a --nvar 100
+[sex 23 ago 2024 16:19:36 -03]: Finalizou para a configuração --lshade --sf --a --nvar 100
+[sex 23 ago 2024 16:30:47 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 90 --sf --a --nvar 100 --rand --10percpop
+[sex 23 ago 2024 16:37:17 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 90 --sf --a --nvar 100 --rand --10percpop
+[sex 23 ago 2024 16:47:42 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 90 --sf --a --nvar 100 --rand --10percpop
+[sex 23 ago 2024 16:49:26 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 90 --sf --a --nvar 100 --rand --10percpop
+[sex 23 ago 2024 16:57:51 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 90 --sf --a --nvar 100 --rand --10percpop
+[seg 26 ago 2024 17:29:07 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 90 --sf --a --nvar 100 --rand --p10
+[seg 26 ago 2024 17:40:14 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 90 --sf --a --nvar 100 --rand --p10
+[seg 26 ago 2024 17:40:47 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 90 --sf --a --nvar 100 --rand --p80
+[seg 26 ago 2024 17:46:31 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 90 --sf --a --nvar 100 --rand --p80
+[seg 26 ago 2024 17:52:59 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 90 --sf --a --nvar 100 --rand --p80
+[seg 26 ago 2024 17:59:53 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 90 --sf --a --nvar 100 --rand --p80
+[seg 26 ago 2024 18:06:33 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 90 --sf --a --nvar 100 --rand --p80
+[seg 26 ago 2024 18:07:31 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 90 --sf --a --nvar 100 --rand --p80
+[seg 26 ago 2024 18:14:15 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 90 --sf --a --nvar 100 --rand --p80
+[seg 26 ago 2024 20:45:26 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 90 --sf --a --nvar 100 --rand --p80
+[seg 26 ago 2024 20:52:25 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 90 --sf --a --nvar 100 --rand --p80
+[seg 26 ago 2024 20:53:01 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 90 --sf --a --nvar 100 --rand --p80
+[seg 26 ago 2024 20:59:40 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 90 --sf --a --nvar 100 --rand --p80
+[seg 26 ago 2024 21:00:08 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 40 --h 0.0098 --s 90 --sf --a --nvar 100 --rand --p80
+[seg 26 ago 2024 21:06:15 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 40 --h 0.0098 --s 90 --sf --a --nvar 100 --rand --p80
+[ter 27 ago 2024 10:55:36 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 40 --h 0.0098 --s 90 --sf --a --nvar 100 --rand --p80
+[ter 27 ago 2024 11:01:49 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 40 --h 0.0098 --s 90 --sf --a --nvar 100 --rand --p80
+[ter 27 ago 2024 11:03:52 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 40 --h 0.0098 --s 90 --sf --a --nvar 100 --rand --p80
+[ter 27 ago 2024 11:09:59 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 40 --h 0.0098 --s 90 --sf --a --nvar 100 --rand --p80
+[ter 27 ago 2024 11:11:08 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 40 --h 0.0098 --s 90 --sf --a --nvar 100 --rand --p80
+[ter 27 ago 2024 11:17:24 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 40 --h 0.0098 --s 90 --sf --a --nvar 100 --rand --p80
+[ter 27 ago 2024 11:18:37 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 50 --rand --p80
+[ter 27 ago 2024 11:19:18 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 50 --rand --p80
+[ter 27 ago 2024 11:27:04 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 50 --rand --p80
+[ter 27 ago 2024 11:27:56 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 50 --rand --p80
+[ter 27 ago 2024 11:31:51 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 30 --rand --p80
+[ter 27 ago 2024 11:32:02 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 30 --rand --p80
+[ter 27 ago 2024 11:34:47 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10 --rand --p80
+[ter 27 ago 2024 11:34:47 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10 --rand --p80
+[ter 27 ago 2024 11:36:29 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10 --rand --p80
+[ter 27 ago 2024 11:36:30 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10 --rand --p80
+[ter 27 ago 2024 11:39:23 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 100 --rand --p80
+[ter 27 ago 2024 11:44:15 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 100 --rand --p80
+[ter 27 ago 2024 12:33:09 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 30 --rand --p80
+[ter 27 ago 2024 12:33:18 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 30 --rand --p80
+[ter 27 ago 2024 12:35:23 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 50 --rand --p80
+[ter 27 ago 2024 12:36:00 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 50 --rand --p80
+[ter 27 ago 2024 12:55:23 -03]: Iniciou a exec. para a configuração --lshade --sf --a --nvar 50
+[ter 27 ago 2024 13:02:07 -03]: Iniciou a exec. para a configuração --lshade --sf --a --nvar 10
+[ter 27 ago 2024 13:02:07 -03]: Finalizou para a configuração --lshade --sf --a --nvar 10
+[ter 27 ago 2024 13:03:24 -03]: Iniciou a exec. para a configuração --lshade --sf --a --nvar 10
+[ter 27 ago 2024 13:03:25 -03]: Finalizou para a configuração --lshade --sf --a --nvar 10
+[ter 27 ago 2024 13:03:54 -03]: Iniciou a exec. para a configuração --lshade --sf --a --nvar 10
+[ter 27 ago 2024 13:03:54 -03]: Finalizou para a configuração --lshade --sf --a --nvar 10
+[ter 27 ago 2024 13:05:17 -03]: Iniciou a exec. para a configuração --lshade --sf --a --nvar 10
+[ter 27 ago 2024 13:05:18 -03]: Finalizou para a configuração --lshade --sf --a --nvar 10
+[ter 27 ago 2024 14:56:51 -03]: Iniciou a exec. para a configuração --lshade --sf --a --nvar 30
+[ter 27 ago 2024 14:57:03 -03]: Finalizou para a configuração --lshade --sf --a --nvar 30
+[ter 27 ago 2024 15:12:47 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10 --rand
+[ter 27 ago 2024 15:12:47 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10 --rand
+[ter 27 ago 2024 15:18:46 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10 --rand
+[ter 27 ago 2024 15:18:46 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10 --rand
+[ter 27 ago 2024 15:23:23 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10 --rand
+[ter 27 ago 2024 15:23:24 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10 --rand
+[ter 27 ago 2024 15:24:09 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10 --rand
+[ter 27 ago 2024 15:24:10 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10 --rand
+[ter 27 ago 2024 15:39:35 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10 --rand
+[ter 27 ago 2024 15:39:36 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10 --rand
+[ter 27 ago 2024 15:41:09 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10 --rand
+[ter 27 ago 2024 15:41:10 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10 --rand
+[ter 27 ago 2024 15:41:39 -03]: Iniciou a exec. para a configuração --lshade --sf --a --nvar 10
+[ter 27 ago 2024 15:41:41 -03]: Finalizou para a configuração --lshade --sf --a --nvar 10
+[ter 27 ago 2024 15:41:51 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10 --rand
+[ter 27 ago 2024 15:41:52 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10 --rand
+[ter 27 ago 2024 15:53:38 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10 --rand
+[ter 27 ago 2024 15:53:39 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10 --rand
+[ter 27 ago 2024 15:54:11 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10 --rand
+[ter 27 ago 2024 15:54:12 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10 --rand
+[ter 27 ago 2024 15:55:03 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10 --rand
+[ter 27 ago 2024 15:55:04 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10 --rand
+[ter 27 ago 2024 16:39:05 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10 --rand
+[ter 27 ago 2024 16:39:05 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10 --rand
+[ter 27 ago 2024 16:41:00 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10 --rand
+[ter 27 ago 2024 16:41:01 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10 --rand
+[ter 27 ago 2024 16:42:04 -03]: Iniciou a exec. para a configuração --lshade --sf --a --nvar 10
+[ter 27 ago 2024 16:42:05 -03]: Finalizou para a configuração --lshade --sf --a --nvar 10
+[ter 27 ago 2024 16:44:17 -03]: Iniciou a exec. para a configuração --lshade --sf --a --nvar 10
+[ter 27 ago 2024 16:44:19 -03]: Finalizou para a configuração --lshade --sf --a --nvar 10
+[ter 27 ago 2024 16:44:46 -03]: Iniciou a exec. para a configuração --lshade --sf --a --nvar 10
+[ter 27 ago 2024 16:44:47 -03]: Finalizou para a configuração --lshade --sf --a --nvar 10
+[ter 27 ago 2024 17:07:05 -03]: Iniciou a exec. para a configuração --lshade --sf --a --nvar 10
+[ter 27 ago 2024 17:07:06 -03]: Finalizou para a configuração --lshade --sf --a --nvar 10
+[ter 27 ago 2024 17:07:29 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10 --rand
+[ter 27 ago 2024 17:07:29 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10 --rand
+[ter 27 ago 2024 17:14:42 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10 --rand
+[ter 27 ago 2024 17:14:42 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10 --rand
+[ter 27 ago 2024 17:16:46 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10 --rand
+[ter 27 ago 2024 17:16:47 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10 --rand
+[ter 27 ago 2024 17:17:03 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10 --rand
+[ter 27 ago 2024 17:17:04 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10 --rand
+[ter 27 ago 2024 17:17:46 -03]: Iniciou a exec. para a configuração --lshade --sf --a --nvar 10
+[ter 27 ago 2024 17:17:47 -03]: Finalizou para a configuração --lshade --sf --a --nvar 10
+[qua 28 ago 2024 11:31:52 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --sf --a --nvar 10
+[qua 28 ago 2024 11:31:52 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --sf --a --nvar 10
+[qua 28 ago 2024 11:48:22 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --sf --a --nvar 10
+[qua 28 ago 2024 11:48:22 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --sf --a --nvar 10
+[qua 28 ago 2024 11:54:54 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --sf --a --nvar 10
+[qua 28 ago 2024 11:54:54 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --sf --a --nvar 10
+[qua 28 ago 2024 12:39:09 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10
+[qua 28 ago 2024 12:39:09 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10
+[qua 28 ago 2024 16:53:05 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10
+[qua 28 ago 2024 16:53:06 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10
+[qua 28 ago 2024 17:00:00 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10
+[qua 28 ago 2024 17:00:01 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10
+[qua 28 ago 2024 17:00:32 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10
+[qua 28 ago 2024 17:00:32 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10
+[qua 28 ago 2024 17:09:21 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10
+[qua 28 ago 2024 17:09:22 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10
+[qua 28 ago 2024 17:33:50 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10
+[qua 28 ago 2024 17:33:50 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10
+[qua 28 ago 2024 17:35:58 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10
+[qua 28 ago 2024 17:35:59 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10
+[qua 28 ago 2024 17:37:22 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10
+[qua 28 ago 2024 17:37:22 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10
+[qua 28 ago 2024 17:38:05 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10
+[qua 28 ago 2024 17:38:06 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10
+[qua 28 ago 2024 17:38:32 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10
+[qua 28 ago 2024 17:38:33 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10
+[qua 28 ago 2024 17:43:32 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10
+[qua 28 ago 2024 17:43:33 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10
+[qua 28 ago 2024 17:44:05 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10
+[qua 28 ago 2024 17:44:06 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10
+[qua 28 ago 2024 17:44:34 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10
+[qua 28 ago 2024 17:44:35 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10
+[qua 28 ago 2024 17:51:41 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --nvar 10
+[qua 28 ago 2024 17:52:15 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --nvar 10
+[qua 28 ago 2024 17:52:41 -03]: Iniciou a exec. para a configuração --lshade --sf --nvar 10
+[qua 28 ago 2024 17:52:44 -03]: Finalizou para a configuração --lshade --sf --nvar 10
+[qua 28 ago 2024 17:53:28 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --nvar 10
+[qua 28 ago 2024 17:53:36 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --s 35 --sf --nvar 10
+[qua 28 ago 2024 17:53:52 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10
+[qua 28 ago 2024 17:53:53 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10
+[qua 28 ago 2024 17:55:23 -03]: Iniciou a exec. para a configuração --lshade --sf --a --nvar 30
+[qua 28 ago 2024 17:55:36 -03]: Finalizou para a configuração --lshade --sf --a --nvar 30
+[qua 28 ago 2024 17:55:36 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 30
+[qua 28 ago 2024 17:55:47 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 30
+[qua 28 ago 2024 18:01:31 -03]: Iniciou a exec. para a configuração --lshade --sf --a --nvar 10
+[qua 28 ago 2024 18:01:32 -03]: Finalizou para a configuração --lshade --sf --a --nvar 10
+[qua 28 ago 2024 18:01:32 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10
+[qua 28 ago 2024 18:01:33 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10
+[qua 28 ago 2024 18:02:11 -03]: Iniciou a exec. para a configuração --lshade --sf --a --nvar 10
+[qua 28 ago 2024 18:02:12 -03]: Finalizou para a configuração --lshade --sf --a --nvar 10
+[qua 28 ago 2024 18:02:12 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10
+[qua 28 ago 2024 18:02:13 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10
+[qua 28 ago 2024 18:03:42 -03]: Iniciou a exec. para a configuração --lshade --sf --a --nvar 10
+[qua 28 ago 2024 18:03:43 -03]: Finalizou para a configuração --lshade --sf --a --nvar 10
+[qua 28 ago 2024 18:03:43 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10
+[qua 28 ago 2024 18:03:44 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10
+[qua 28 ago 2024 18:05:53 -03]: Iniciou a exec. para a configuração --lshade --sf --a --nvar 10
+[qua 28 ago 2024 18:05:55 -03]: Finalizou para a configuração --lshade --sf --a --nvar 10
+[qua 28 ago 2024 18:05:55 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10
+[qua 28 ago 2024 18:05:56 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 10
+[qua 28 ago 2024 18:06:48 -03]: Iniciou a exec. para a configuração --lshade --sf --a --nvar 30
+[qua 28 ago 2024 18:07:01 -03]: Finalizou para a configuração --lshade --sf --a --nvar 30
+[qua 28 ago 2024 18:07:01 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 30
+[qua 28 ago 2024 18:07:11 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 30
+[qua 28 ago 2024 18:07:58 -03]: Iniciou a exec. para a configuração --lshade --sf --a --nvar 50
+[qua 28 ago 2024 18:08:44 -03]: Finalizou para a configuração --lshade --sf --a --nvar 50
+[qua 28 ago 2024 18:08:44 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 50
+[qua 28 ago 2024 18:09:28 -03]: Finalizou para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 50
+[qua 28 ago 2024 18:14:00 -03]: Iniciou a exec. para a configuração --lshade --sf --a --nvar 100
+[qua 28 ago 2024 18:19:44 -03]: Finalizou para a configuração --lshade --sf --a --nvar 100
+[qua 28 ago 2024 18:19:44 -03]: Iniciou a exec. para a configuração --fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 100

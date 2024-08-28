@@ -38,6 +38,25 @@ int isDirectory(const char *path) {
    return S_ISDIR(statbuf.st_mode);
 }
 
+double difference(Individual i1, Individual i2) {
+  double diff = 0;
+  for (size_t i = 0; i < g_problem_size; i++) {
+      diff += (i1[i] - i2[i]) * (i1[i] - i2[i]);   
+  }
+  return sqrt(diff);
+}
+
+
+double computeDiversity(vector<Individual> population) {
+  double diff_acc = 0;
+  for (Individual ind1 : population) {
+    for (Individual ind2 : population) {
+      diff_acc += difference(ind1, ind2);
+    }
+  }
+  return diff_acc / population.size(); 
+}
+
 
 void fprintPopulation(vector <Individual> pop, int generation, string basepath) {
   

@@ -208,19 +208,46 @@ Fitness FP_MAX_LSHADE::run()
     std::set<Pattern> patterns = computeFrequentIntervalSets(support, discretization_step);
     vector<interval_pattern> ipatterns = computePatternBounds(patterns, discretization_step);
 
-    if (pattern_usage_strategy == INSERT_IN_POP) {
+    if (pattern_usage_strategy == INSERT_IN_POP 
+        && (generation > 0 && generation % dm_gen_step == 0)) {      
+
       int insertionsCount = 0;
+      double avgPatternSize = 0;
+      succ_count = 0;
+      cmp_count = 0;
+
       for (auto ipatt : ipatterns) {
+
+        // if (ipatt.size() < g_problem_size * 0.6)
+        //   continue;
+        
+        avgPatternSize += ipatt.size();
         Individual new_ind = makeNewIndividualFromPattern(ipatt);
-        pop[sorted_array[g_pop_size - 1 - insertionsCount++]] = new_ind;
-        if (insertionsCount > g_pop_size * 0.2)
-          break;
+
+        cmp_count++;
+        int idx = sorted_array[g_pop_size - 1 - insertionsCount++];
+        if(debug_mode && evaluateIndividual(new_ind) < evaluateIndividual(pop[idx]))
+          succ_count++;
+
+        pop[idx] = new_ind;
+
+        // if (insertionsCount > g_pop_size * 0.8)
+        //   break;
       }
+
+      if (debug_mode && ipatterns.size()) {
+        hasPatterns = true;
+
+        dm_effect_data_file << cmp_count << ";";
+        dm_effect_data_file << avgPatternSize / ipatterns.size() << ";";
+        dm_effect_data_file << (double)succ_count / cmp_count << ";";
+      }
+
     }
+
     ////////////////////////////////
-    dm_effect_data_file << ";";
-    if (!hasPatterns)
-      dm_effect_data_file << ";;";
+
+    if (debug_mode && !hasPatterns) dm_effect_data_file << ";;;";
 
     for (int target = 0; target < pop_size; target++)
     {
@@ -289,6 +316,8 @@ Fitness FP_MAX_LSHADE::run()
     //gen_costs << mean_gen_cost << "," << bsf_fitness << endl;
     ////////////////////////////////////////////////////////////////////////////
 
+    cmp_count = 0;
+    succ_count = 0;
     // generation alternation
     for (int i = 0; i < pop_size; i++)
     {

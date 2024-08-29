@@ -289,6 +289,9 @@ Fitness LSHADE::run()
     //gen_costs << mean_gen_cost << "," << bsf_fitness << endl;
     ////////////////////////////////////////////////////////////////////////////
 
+    cmp_count = 0;
+    succ_count = 0;
+    
     // generation alternation
     for (int i = 0; i < pop_size; i++)
     {

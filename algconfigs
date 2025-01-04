@@ -1,2 +1,1 @@
---lshade --sf --a --nvar 100
---fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 20 --h 0.0098 --s 95 --sf --a --nvar 100
+--fpmaxlshade --crossgen --insert --rand --er 0.1 --gs 880 --h 0.4074 --s 50 --pcr 0.1143 --psr 0.5547 --nvar 10 --sf --ta

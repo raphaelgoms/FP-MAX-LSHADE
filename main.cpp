@@ -181,8 +181,10 @@ double g_elite_rate;
 int main(int argc, char **argv)
 {
 
-	double elite_rate;
+	double elite_rate = 0.0;
 	double clusters_rate = 0.0;
+	double patterns_size_rate = 0.0;
+	double patterns_count_rate = 0.0;
 	string seed_type = "timed";
 
 	string algCode;
@@ -427,6 +429,18 @@ int main(int argc, char **argv)
 			clusters_rate = atof( argv[++i]);
 			if (print) cout << "Clusters Rate: " << clusters_rate << endl;
 			arguments += "--cr " +  string(argv[i])  + " ";
+		}
+		else
+		if (!strcmp("--psr", argv[i])) {
+			patterns_size_rate = atof( argv[++i]);
+			if (print) cout << "Pattern Size Rate: " << patterns_size_rate << endl;
+			arguments += "--psr " +  string(argv[i])  + " ";
+		}
+		else 
+		if (!strcmp("--pcr", argv[i])) {
+			patterns_count_rate = atof( argv[++i]);
+			if (print) cout << "Patterns Count Rate: " << patterns_size_rate << endl;
+			arguments += "--pcr " +  string(argv[i])  + " ";
 		}  
 		else if (!strcmp("--sf", argv[i])) {
 			seed_type = "fixed";
@@ -462,7 +476,7 @@ int main(int argc, char **argv)
 
 	g_pop_size = (int)round(g_problem_size * 18);
 	g_memory_size = 6;
-	g_arc_rate = 0; //5.2;
+	g_arc_rate = 2.6;
 	g_p_best_rate = 0.11;
 	g_max_num_evaluations = max_evals; //g_problem_size * 1200;
 	g_elite_rate = elite_rate;
@@ -525,6 +539,9 @@ int main(int argc, char **argv)
 			((FP_MAX_LSHADE*)fp_max_lshade)->dm_start_gen = dmStartMoment;
 			((FP_MAX_LSHADE*)fp_max_lshade)->dm_gen_step = dmGenStep;
 			((FP_MAX_LSHADE*)fp_max_lshade)->config = dmGenStep;
+
+			((FP_MAX_LSHADE*)fp_max_lshade)->patterns_count_rate = patterns_count_rate;
+			((FP_MAX_LSHADE*)fp_max_lshade)->patterns_size_rate = patterns_size_rate;
 		
 			if(eliteSize==0)
 				eliteSize = (int)std::round(g_elite_rate * g_pop_size);
@@ -556,7 +573,7 @@ int main(int argc, char **argv)
 	{
 
 
-	int nruns=30;
+	int nruns=51; // 30;
 	if (analysis_mode) { 
 		nruns = 1;
 	}
@@ -657,7 +674,6 @@ int main(int argc, char **argv)
 		}
 
 		if (algCode == "lshade") {
-			if (analysis_mode) lshade->debug_mode = true;
 
 			lshade->seed = seed;
 			lshade->cec_year = cec_year;
@@ -707,6 +723,9 @@ int main(int argc, char **argv)
 				((FP_MAX_LSHADE*)fp_max_lshade)->debug_mode = true;
 				((FP_MAX_LSHADE*)fp_max_lshade)->config = arguments;
 			}
+
+			((FP_MAX_LSHADE*)fp_max_lshade)->patterns_count_rate = patterns_count_rate;
+			((FP_MAX_LSHADE*)fp_max_lshade)->patterns_size_rate = patterns_size_rate;
 
 			Tempo_CPU_Sistema(&s_CPU_inicial, &s_total_inicial);
 			cost = fp_max_lshade->run();

@@ -260,6 +260,10 @@ public:
   string elite_type;
   int elite_max_size = 180;
   vector<tuple<Individual, double>> elite;
+  vector<tuple<Individual, double>> new_elite;
+  vector<Individual> points;
+
+
   vector<set<int>> elite_transactions;
   map<string, int> mapIntervalToItemID;
   map<int, string> mapItemIDToInterval;
@@ -273,6 +277,9 @@ public:
   SolutionFillingStrategy filling_strategy;
   int itemID=1;
 
+  double patterns_size_rate = 0.3;
+  double patterns_count_rate = 0.8;
+  
   int support;
   double discretization_step;
   

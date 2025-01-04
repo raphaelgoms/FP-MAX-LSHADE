@@ -200,10 +200,9 @@ Fitness LSHADE::run()
     }
 
     if (bsf_fitness - optimum < 10e-8) {
-        //cout << "cfo: " << nfes << endl;
-        break;
+      bsf_fitness = optimum;
+      break;
     }
-
     this->used_gen_count++;
 
     for (int i = 0; i < pop_size; i++)

@@ -21,6 +21,9 @@ FP_MAX_LSHADE::FP_MAX_LSHADE(int cec_function_number,
 
 Fitness FP_MAX_LSHADE::run()
 {
+  //cout << this->seed << endl;
+  srand(this->seed);
+  debug_mode = false;
   double s_CPU_inicial, s_CPU_final;
   double s_total_inicial, s_total_final;
 
@@ -55,6 +58,7 @@ Fitness FP_MAX_LSHADE::run()
   evaluatePopulation(pop, fitness);
 
   elite.clear();
+  elite_transactions.clear();
 
 
   Individual bsf_solution = (variable *)malloc(sizeof(variable) * problem_size);
@@ -219,9 +223,10 @@ Fitness FP_MAX_LSHADE::run()
         && (generation > 0 && generation % dm_gen_step == 0)) {  
 
       elite_transactions.clear();
-      for (size_t i = 0; i < elite.size(); i++) {
+      for (int i = 0; i < elite.size(); i++) {
         elite_transactions.push_back(transformToTransaction(get<0>(elite[i])));
       }
+      //cout << elite_transactions.size() << endl;
 
       std::set<Pattern> patterns = computeFrequentIntervalSets(support, discretization_step);
       vector<interval_pattern> ipatterns = computePatternBounds(patterns, discretization_step);   
@@ -231,33 +236,33 @@ Fitness FP_MAX_LSHADE::run()
       succ_count = 0;
       cmp_count = 0;
 
-      std::sort(ipatterns.begin(), ipatterns.end(), 
-        [](interval_pattern &p1, interval_pattern &p2){ 
-            return p1.size() > p2.size();
-        });
+      // std::sort(ipatterns.begin(), ipatterns.end(), 
+      //   [](interval_pattern &p1, interval_pattern &p2){ 
+      //       return p1.size() > p2.size();
+      //   });
 
       for (auto ipatt : ipatterns) {
 
         // if (insertionsCount>g_pop_size)
         //   break;
-        cout << "pcr = " << patterns_count_rate << endl;
+        // cout << "pcr = " << patterns_count_rate << endl;
         
-
         if (insertionsCount >= std::round(pop_size * patterns_count_rate))
           break;
 
         if (ipatt.size() < std::round(problem_size * patterns_size_rate))
           continue;
 
-        cout << "psr = " << patterns_size_rate << endl; 
-        
-        avgPatternSize += ipatt.size();
+        //cout << "psr = " << patterns_size_rate << endl; 
+        // avgPatternSize += ipatt.size();
+
+        int idx = sorted_array[g_pop_size - 1 - insertionsCount++];
+        //int idx = sorted_array[rand() % p_num]; insertionsCount++;
         Individual new_ind = makeNewIndividualFromPattern(ipatt);
 
-        cmp_count++;
-        int idx = sorted_array[g_pop_size - 1 - insertionsCount++];
-        if(debug_mode && evaluateIndividual(new_ind) < evaluateIndividual(pop[idx]))
-          succ_count++;
+        // cmp_count++;
+        // if(debug_mode && evaluateIndividual(new_ind) < evaluateIndividual(pop[idx]))
+        //   succ_count++;
 
         pop[idx] = new_ind;
 
@@ -560,7 +565,7 @@ void FP_MAX_LSHADE::updateElite(vector<Individual> & curr_pop, int* sorted_index
     // if (elite.size() == 0) {
     //   for (int i = 0; i < max; i++) {
     //     Individual ind = curr_pop[sorted_indexes[i]];
-    //     elite.push_back({ ind, fitness[i] });
+    //     // elite.push_back({ ind, fitness[i] });
     //     elite_transactions.push_back(transformToTransaction(ind));
     //   }
     // } 
@@ -571,19 +576,20 @@ void FP_MAX_LSHADE::updateElite(vector<Individual> & curr_pop, int* sorted_index
     //     std::vector<tuple<Individual, double>>::iterator elite_member = elite.end();
     //     std::vector<set<int>>::iterator elite_t_member = elite_transactions.end();
 
-    //     int pos = elite.size();
+    //     int pos = elite_transactions.size();
     //     while (elite_member != elite.begin() && fitness[i] < get<1>(*(elite_member-1))) {
-    //         elite_member--;
+    //         // elite_member--;
     //         elite_t_member--;
     //         pos--;
     //     }
 
-    //     if (pos < elite.size()) {
+    //     if (pos < elite_transactions.size()) {
+
     //       int index = sorted_indexes[i];
     //       Individual ind = curr_pop[index];
     //       Fitness fit = fitness[i];
 
-    //       elite.insert(elite_member, { ind , fit });
+    //       // elite.insert(elite_member, { ind , fit });
     //       elite_transactions.insert(elite_t_member, transformToTransaction(ind));
 
     //       has_update = true;
@@ -591,16 +597,15 @@ void FP_MAX_LSHADE::updateElite(vector<Individual> & curr_pop, int* sorted_index
     //     else if (pos < elite_max_size)
     //     {
     //       Individual ind = curr_pop[sorted_indexes[i]];
-    //       elite.push_back({ ind , fitness[i] });
+    //       // elite.push_back({ ind , fitness[i] });
     //       elite_transactions.push_back(transformToTransaction(ind));
     //     }
     //  }
 
     // }
-
-   
-    // if (has_update && elite.size() > elite_max_size) {
-    //     elite.resize(elite_max_size);
+  
+    // if (has_update && elite_transactions.size() > elite_max_size) {
+    //     // elite.resize(elite_max_size);
     //     elite_transactions.resize(elite_max_size);
     // }
 
@@ -615,24 +620,21 @@ void FP_MAX_LSHADE::updateElite(vector<Individual> & curr_pop, int* sorted_index
 
       // cout<< i << " " << j << " "<< k << endl;
       while (i < elite.size() && k < elite_max_size && get<1>(elite[i]) <= fitness[sorted_indexes[j]]) {
-        points[k] = get<0>(elite[i]);
-        new_elite[k++] = elite[i++];
-
-        i++;
+        //points[k] = get<0>(elite[i]);
+        new_elite[k] = elite[i];
+        k++; i++;
       }
 
       if (k >= elite_max_size)
         break; 
 
-      points[k] = curr_pop[sorted_indexes[j]];
-      new_elite[k++] = { curr_pop[sorted_indexes[j]], fitness[sorted_indexes[j]] };
-      j++;
+      //points[k] = curr_pop[sorted_indexes[j]];
+      new_elite[k] = { curr_pop[sorted_indexes[j]], fitness[sorted_indexes[j]] };
+      k++; j++;
     }
 
-    //cout<< i << " " << j << " "<< k << endl;
-
+    // cout << i << " " << j << " "<< k << endl;
     elite = new_elite;
-    
 }
 
 set<int> FP_MAX_LSHADE::transformToTransaction(Individual ind) {

@@ -184,7 +184,7 @@ int main(int argc, char **argv)
 	double elite_rate = 0.0;
 	double clusters_rate = 0.0;
 	double patterns_size_rate = 0.0;
-	double patterns_count_rate = 0.0;
+	double patterns_count_rate = 1.0;
 	string seed_type = "timed";
 
 	string algCode;
@@ -224,11 +224,11 @@ int main(int argc, char **argv)
 	string arguments("");
 	bool print = false;
 
-	g_min_region = -80.0;
-	g_max_region = 80.0;
+	// g_min_region = -80.0;
+	// g_max_region = 80.0;
 
-	//g_min_region = -100.0;
-	//g_max_region = 100.0;
+	g_min_region = -100.0;
+	g_max_region = 100.0;
 
 	std::string data_root_path = "";
 	while (!isDirectory((data_root_path + "input_data_cec22").c_str()))
@@ -439,7 +439,7 @@ int main(int argc, char **argv)
 		else 
 		if (!strcmp("--pcr", argv[i])) {
 			patterns_count_rate = atof( argv[++i]);
-			if (print) cout << "Patterns Count Rate: " << patterns_size_rate << endl;
+			if (print) cout << "Patterns Count Rate: " << patterns_count_rate << endl;
 			arguments += "--pcr " +  string(argv[i])  + " ";
 		}  
 		else if (!strcmp("--sf", argv[i])) {
@@ -650,9 +650,9 @@ int main(int argc, char **argv)
 
 	for (int i = 0; i < nruns; i++)
 	{	 
-		cout << "--------------" << endl;
-		cout << "RUN " << (i + 1) << ":" << endl;
-		cout << endl;
+		//cout << "--------------" << endl;
+		//cout << "RUN " << (i + 1) << ":" << endl;
+		//cout << endl;
 
 		//if (i+1==5){
 		//	continue;
@@ -694,7 +694,8 @@ int main(int argc, char **argv)
 			run_avg_cost_data << ";" << lshade->run_avg_cost;  
 		}
 		else if (algCode == "fpmaxlshade") {
-			//cout << "fpmaxlshade" << endl;
+			//cout << seed << endl;
+			((FP_MAX_LSHADE*)fp_max_lshade)->seed = seed;
 			((FP_MAX_LSHADE*)fp_max_lshade)->number_of_patterns = number_of_patterns_to_mining;
 			((FP_MAX_LSHADE*)fp_max_lshade)->mining_algorithm = mining_algorithm;
 			((FP_MAX_LSHADE*)fp_max_lshade)->pattern_sel_strategy = pattern_sel_strategy;
@@ -707,7 +708,7 @@ int main(int argc, char **argv)
 			if(eliteSize==0)
 				eliteSize = (int)std::round(g_elite_rate * g_pop_size);
 
-			cout <<" elite size = " << eliteSize << endl;
+			// cout <<" elite size = " << eliteSize << endl;
 
 			((FP_MAX_LSHADE*)fp_max_lshade)->elite_max_size = eliteSize;
 			((FP_MAX_LSHADE*)fp_max_lshade)->seed = seed; //Rn[rand_idx];
@@ -788,16 +789,16 @@ int main(int argc, char **argv)
 		avg_time += (s_CPU_final - s_CPU_inicial);
 		avg_patterns_count += patterns_count;
 		
-		cout << "cost = " << cost << endl;
-		cout << "run time = " << (s_CPU_final - s_CPU_inicial) << endl;
+		//cout << "cost = " << cost << endl;
+		//cout << "run time = " << (s_CPU_final - s_CPU_inicial) << endl;
 		//cout << "patterns count = " << patterns_count << endl;
 
 		if (cost < min) min = cost;
 		
-		cout << "--------------" << endl;
-		cout << endl;
+		//cout << "--------------" << endl;
+		// cout << endl;
 	}
-	
+	cout << endl;
 	stats_test_data << endl;
 	stats_test_data.close();
 

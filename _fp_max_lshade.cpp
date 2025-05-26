@@ -175,8 +175,13 @@ Fitness FP_MAX_LSHADE::run()
     dm_effect_data_file << "G;PD;NP;APS;MSR;PSR" << endl; 
   }
 
-    int j=0;
+  vector<interval_pattern> ipatterns;
+
+  int j=0;
   // main loop
+
+  // elite_max_size = 50;
+  int pindex = 0;
   while (nfes < max_num_evaluations)
   //while (true)
   {
@@ -215,21 +220,46 @@ Fitness FP_MAX_LSHADE::run()
       temp_fit[i] = fitness[i];
     sortIndexWithQuickSort(&temp_fit[0], 0, pop_size - 1, sorted_array);
 
+    //cout << "Update elite! " << endl;
     updateElite(pop, sorted_array, temp_fit);
 
     // MINING //////////////////////
     bool hasPatterns = false;
+    
     if (pattern_usage_strategy == INSERT_IN_POP 
         && (generation > 0 && generation % dm_gen_step == 0)) {  
-
+      
+      // cout << "Mining" << endl;
       elite_transactions.clear();
-      for (int i = 0; i < elite.size(); i++) {
+      for (int i = 0; i < current_elite_size; i++) {
         elite_transactions.push_back(transformToTransaction(get<0>(elite[i])));
       }
-      //cout << elite_transactions.size() << endl;
+      // cout << elite_transactions.size() << endl;
 
       std::set<Pattern> patterns = computeFrequentIntervalSets(support, discretization_step);
-      vector<interval_pattern> ipatterns = computePatternBounds(patterns, discretization_step);   
+      ipatterns = computePatternBounds(patterns, discretization_step);   
+      if (ipatterns.size()) hasPatterns = true;
+
+      // for (auto ipatt : ipatterns) {
+      // if (ipatterns.size()) {
+      //   auto ipatt = ipatterns[pindex % ipatterns.size()];
+      //   pindex++;
+      //   for (size_t k = 0; k < g_problem_size; k++) {
+      //     if (ipatt.find(k) != ipatt.end()) {
+      //       double lower = get<0>(ipatt[k]);
+      //       double upper = get<1>(ipatt[k]);
+
+      //       lower_bounds[k] = lower;
+      //       upper_bounds[k] = upper; 
+      //     }
+      //   }
+      // }
+      // }
+
+      // for (size_t i = 0; i < g_pop_size; i++)
+      // {
+      //   pop[i] = makeNewIndividual();
+      // }
       
       int insertionsCount = 0;
       double avgPatternSize = 0;
@@ -241,42 +271,44 @@ Fitness FP_MAX_LSHADE::run()
       //       return p1.size() > p2.size();
       //   });
 
-      for (auto ipatt : ipatterns) {
+      // for (auto ipatt : ipatterns) {
 
-        // if (insertionsCount>g_pop_size)
-        //   break;
-        // cout << "pcr = " << patterns_count_rate << endl;
+      //   if (insertionsCount>=g_pop_size)
+      //     break;
+      //   // cout << "pcr = " << patterns_count_rate << endl;
         
-        if (insertionsCount >= std::round(pop_size * patterns_count_rate))
-          break;
+      //   // if (insertionsCount >= std::round(pop_size * patterns_count_rate))
+      //   //   break;
 
-        if (ipatt.size() < std::round(problem_size * patterns_size_rate))
-          continue;
+      //   // if (ipatt.size() < std::round(problem_size * patterns_size_rate))
+      //   //   continue;
 
-        //cout << "psr = " << patterns_size_rate << endl; 
-        // avgPatternSize += ipatt.size();
+      //   //cout << "psr = " << patterns_size_rate << endl; 
+      //   // avgPatternSize += ipatt.size();
 
-        int idx = sorted_array[g_pop_size - 1 - insertionsCount++];
-        //int idx = sorted_array[rand() % p_num]; insertionsCount++;
-        Individual new_ind = makeNewIndividualFromPattern(ipatt);
+      //   int idx = sorted_array[g_pop_size - 1 - insertionsCount++];
+      //   //int idx = sorted_array[rand() % p_num]; insertionsCount++;
+      //   Individual new_ind = makeNewIndividualFromPattern(ipatt);
 
-        // cmp_count++;
-        // if(debug_mode && evaluateIndividual(new_ind) < evaluateIndividual(pop[idx]))
-        //   succ_count++;
+      //   // cmp_count++;
+      //   // if(debug_mode && evaluateIndividual(new_ind) < evaluateIndividual(pop[idx]))
+      //   //   succ_count++;
 
-        pop[idx] = new_ind;
+      //   pop[idx] = new_ind;
 
-        // if (insertionsCount > g_pop_size * 0.8)
-        //   break;
-      }
+      //   // if (insertionsCount > g_pop_size * 0.8)
+      //   //   break;
+      // }
 
-      if (debug_mode && ipatterns.size()) {
-        hasPatterns = true;
+      // if (debug_mode && ipatterns.size()) {
+      //   hasPatterns = true;
 
-        dm_effect_data_file << cmp_count << ";";
-        dm_effect_data_file << avgPatternSize / ipatterns.size() << ";";
-        dm_effect_data_file << (double)succ_count / cmp_count << ";";
-      }
+      //   dm_effect_data_file << cmp_count << ";";
+      //   dm_effect_data_file << avgPatternSize / ipatterns.size() << ";";
+      //   dm_effect_data_file << (double)succ_count / cmp_count << ";";
+      // }
+
+
 
     }
 
@@ -284,6 +316,7 @@ Fitness FP_MAX_LSHADE::run()
 
     if (debug_mode && !hasPatterns) dm_effect_data_file << ";;;";
 
+    
     for (int target = 0; target < pop_size; target++)
     {
       // In each generation, CR_i and F_i used by each individual x_i are generated by first selecting an index r_i randomly from [1, H]
@@ -313,9 +346,19 @@ Fitness FP_MAX_LSHADE::run()
       if (pop_sf[target] > 1)
         pop_sf[target] = 1;
 
-      // p-best individual is randomly selected from the top pop_size *  p_i members
-      p_best_ind = sorted_array[rand() % p_num];
-      operateCurrentToPBest1BinWithArchive(pop, &children[target][0], target, p_best_ind, pop_sf[target], pop_cr[target], archive, arc_ind_count);
+      
+
+      if (hasPatterns) {
+        //cout << "patterns used" << endl;
+        operateCurrentToPBest1BinWithArchiveAndXPattern(pop, &children[target][0], target, p_best_ind, pop_sf[target], pop_cr[target], 
+              archive, arc_ind_count, ipatterns[pindex % ipatterns.size()]); 
+        pindex++;
+      } else { 
+        //cout << "patterns used" << endl;
+        // p-best individual is randomly selected from the top pop_size *  p_i members
+        p_best_ind = sorted_array[rand() % p_num];
+        operateCurrentToPBest1BinWithArchive(pop, &children[target][0], target, p_best_ind, pop_sf[target], pop_cr[target], archive, arc_ind_count);
+      }
     }
 
     generation++;
@@ -530,6 +573,142 @@ void FP_MAX_LSHADE::operateCurrentToPBest1BinWithArchive(const vector<Individual
   modifySolutionWithParentMedium(child, pop[target]);
 }
 
+void FP_MAX_LSHADE::operateCurrentToPBest1BinWithArchiveAndXPattern(const vector<Individual>& pop, Individual child, int& target, int& p_best_individual,
+    variable& scaling_factor, variable& cross_rate, const vector<Individual>& archive, int& arc_ind_count, interval_pattern pattern) {
+    int r1, r2;
+
+    set<int> unfixed_positions;
+
+    do {
+        r1 = rand() % pop_size;
+    } while (r1 == target);
+    do {
+        r2 = rand() % (pop_size + arc_ind_count);
+    } while ((r2 == target) || (r2 == r1));
+
+    int random_variable = rand() % problem_size;
+
+    if (r2 >= pop_size) {
+        r2 -= pop_size;
+        for (int i = 0; i < problem_size; i++) {
+            if (pattern.count(i)) {
+                
+                double lower = get<0>(pattern[i]);
+                double upper = get<1>(pattern[i]);
+                double pos = ((upper - lower) * randDouble()) + lower;
+                
+                // child[i] = pos;
+                child[i] = pos + scaling_factor * (pop[r1][i] - archive[r2][i]);
+
+            }
+            else if ((randDouble() < cross_rate) || (i == random_variable)) {
+              child[i] = pop[target][i] + scaling_factor * (pop[p_best_individual][i] - pop[target][i]) + scaling_factor * (pop[r1][i] - archive[r2][i]);
+
+              // if (pattern.count(i)) {
+                
+              //   double lower = get<0>(pattern[i]);
+              //   double upper = get<1>(pattern[i]);
+              //   double pos = ((upper - lower) * randDouble()) + lower;
+                
+              //   child[i] = pop[target][i] + scaling_factor * (pos - pop[target][i]) + scaling_factor * (pop[r1][i] - archive[r2][i]);
+
+              //   //child[i] = pattern[i] + scaling_factor * (pattern[i] - pop[target][i]) + scaling_factor * (pop[r1][i] - archive[r2][i]);
+              //   //child[i] = pop[target][i] + scaling_factor * (pattern[i] - pop[target][i]) + scaling_factor * (pop[r1][i] - archive[r2][i]);
+
+              // } else {
+              //   switch (filling_strategy)
+              //   {
+              //   case P_BEST:
+              //     child[i] = pop[target][i] + scaling_factor * (pop[p_best_individual][i] - pop[target][i]) + scaling_factor * (pop[r1][i] - archive[r2][i]);
+              //     break;
+
+              //   case MOMENTUM:
+              //     child[i] = pop[target][i];
+              //     break;
+
+              //   case LINE_SEARCH:
+              //     child[i] = pop[target][i] + scaling_factor * (pop[p_best_individual][i] - pop[target][i]) + scaling_factor * (pop[r1][i] - archive[r2][i]);
+              //     unfixed_positions.insert(i);
+              //     break;
+
+              //   default:
+              //     break;
+              //   }
+              // }
+            }
+            else {
+
+                child[i] = pop[target][i];
+                //child[i] = pattern[i] + scaling_factor * (pattern[i] - pop[target][i]);
+                //child[i] = pop[target][i] + scaling_factor * (pattern[i] - pop[target][i]);
+
+            }
+        }
+    }
+    else {
+        for (int i = 0; i < problem_size; i++) {
+            if (pattern.count(i)) {
+
+                  double lower = get<0>(pattern[i]);
+                  double upper = get<1>(pattern[i]);
+                  double pos = ((upper - lower) * randDouble()) + lower;
+
+                  // child[i] = pos;
+                  child[i] = pos + scaling_factor * (pop[r1][i] - pop[r2][i]);
+
+            }
+            else if ((randDouble() < cross_rate) || (i == random_variable)) {
+              child[i] = pop[target][i] + scaling_factor * (pop[p_best_individual][i] - pop[target][i]) + scaling_factor * (pop[r1][i] - pop[r2][i]);
+                // if (pattern.count(i)) {
+
+                //   double lower = get<0>(pattern[i]);
+                //   double upper = get<1>(pattern[i]);
+                //   double pos = ((upper - lower) * randDouble()) + lower;
+
+                //   child[i] = pop[target][i] + scaling_factor * (pos - pop[target][i]) + scaling_factor * (pop[r1][i] - pop[r2][i]);
+
+                //   //child[i] = pattern[i] + scaling_factor * (pattern[i] - pop[target][i]) + scaling_factor * (pop[r1][i] - pop[r2][i]);
+                //   //child[i] = pop[target][i] + scaling_factor * (pattern[i] - pop[target][i]) + scaling_factor * (pop[r1][i] - pop[r2][i]);
+
+                // } else {
+                //   switch (filling_strategy)
+                //   {
+                //   case P_BEST:
+                //     child[i] = pop[target][i] + scaling_factor * (pop[p_best_individual][i] - pop[target][i]) + scaling_factor * (pop[r1][i] - pop[r2][i]);
+                //     break;
+
+                //   case MOMENTUM:
+                //     child[i] = pop[target][i];
+                //     break;
+
+                //   case LINE_SEARCH:
+                //     child[i] = pop[target][i] + scaling_factor * (pop[p_best_individual][i] - pop[target][i]) + scaling_factor * (pop[r1][i] - pop[r2][i]);
+                //     unfixed_positions.insert(i);
+                //     break;
+
+                //   default:
+                //     break;
+                //   }
+                // }
+            }
+            else {
+
+                child[i] = pop[target][i];
+                //child[i] = pattern[i] + scaling_factor * (pattern[i] - pop[target][i]);
+                //child[i] = pop[target][i] + scaling_factor * (pattern[i] - pop[target][i]);
+            }
+        }
+    }
+
+    //If the mutant vector violates bounds, the bound handling method is applied
+    modifySolutionWithParentMedium(child, pop[target]);
+
+    // Semi-greedy search around child
+    if (filling_strategy == LINE_SEARCH)
+      constructGreedyRandomized(child, unfixed_positions);
+}
+
+
 void FP_MAX_LSHADE::reducePopulationWithSort(vector<Individual> &pop, vector<Fitness> &fitness)
 {
   int worst_ind;
@@ -559,59 +738,12 @@ void FP_MAX_LSHADE::setSHADEParameters()
 
 void FP_MAX_LSHADE::updateElite(vector<Individual> & curr_pop, int* sorted_indexes, double* fitness)
 {
-    // bool has_update = false;
-    // int max = elite_max_size > curr_pop.size() ? curr_pop.size() : elite_max_size;
-
-    // if (elite.size() == 0) {
-    //   for (int i = 0; i < max; i++) {
-    //     Individual ind = curr_pop[sorted_indexes[i]];
-    //     // elite.push_back({ ind, fitness[i] });
-    //     elite_transactions.push_back(transformToTransaction(ind));
-    //   }
-    // } 
-    // else 
-    // {
-    //   for (int i = 0; i < max; i++)
-    //   {
-    //     std::vector<tuple<Individual, double>>::iterator elite_member = elite.end();
-    //     std::vector<set<int>>::iterator elite_t_member = elite_transactions.end();
-
-    //     int pos = elite_transactions.size();
-    //     while (elite_member != elite.begin() && fitness[i] < get<1>(*(elite_member-1))) {
-    //         // elite_member--;
-    //         elite_t_member--;
-    //         pos--;
-    //     }
-
-    //     if (pos < elite_transactions.size()) {
-
-    //       int index = sorted_indexes[i];
-    //       Individual ind = curr_pop[index];
-    //       Fitness fit = fitness[i];
-
-    //       // elite.insert(elite_member, { ind , fit });
-    //       elite_transactions.insert(elite_t_member, transformToTransaction(ind));
-
-    //       has_update = true;
-    //     } 
-    //     else if (pos < elite_max_size)
-    //     {
-    //       Individual ind = curr_pop[sorted_indexes[i]];
-    //       // elite.push_back({ ind , fitness[i] });
-    //       elite_transactions.push_back(transformToTransaction(ind));
-    //     }
-    //  }
-
-    // }
-  
-    // if (has_update && elite_transactions.size() > elite_max_size) {
-    //     // elite.resize(elite_max_size);
-    //     elite_transactions.resize(elite_max_size);
-    // }
-
     int i=0, j=0, k=0;
     //cout << elite_max_size << endl;
     while (true) {
+      if (j >= g_pop_size)
+        break;
+
       if (j >= elite_max_size)
         break;
 
@@ -635,6 +767,7 @@ void FP_MAX_LSHADE::updateElite(vector<Individual> & curr_pop, int* sorted_index
 
     // cout << i << " " << j << " "<< k << endl;
     elite = new_elite;
+    current_elite_size = k;
 }
 
 set<int> FP_MAX_LSHADE::transformToTransaction(Individual ind) {
@@ -662,7 +795,9 @@ std::set<Pattern> FP_MAX_LSHADE::computeFrequentIntervalSets(int support, double
 	for(set<int> transaction: elite_transactions)
     dataset->push_back(transaction);
 
-	FISet* freq_itemsets = fpmax(dataset, support);  
+  // cout << "Dataset size =" << dataset->size() << endl;
+	FISet* freq_itemsets = fpmax(dataset, support, elite_max_size);  
+  //cout << "Freq. Itemsets size =" << freq_itemsets->size() << endl;
   for (FISet::iterator it=freq_itemsets->begin(); it!=freq_itemsets->end(); ++it) {
     set<Item> its;
     for (set<int>::iterator it2=it->begin(); it2!=it->end(); ++it2)

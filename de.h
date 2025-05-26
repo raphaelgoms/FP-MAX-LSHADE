@@ -259,10 +259,10 @@ public:
 
   string elite_type;
   int elite_max_size = 180;
+  int current_elite_size = 0;
   vector<tuple<Individual, double>> elite;
   vector<tuple<Individual, double>> new_elite;
   vector<Individual> points;
-
 
   vector<set<int>> elite_transactions;
   map<string, int> mapIntervalToItemID;
@@ -296,6 +296,9 @@ public:
   void operateCurrentToPBest1BinWithArchive(const vector<Individual> &pop, Individual child, 
     int &target, int &p_best_individual, variable &scaling_factor, variable &cross_rate, 
     const vector<Individual> &archive, int &arc_ind_count);
+
+  void operateCurrentToPBest1BinWithArchiveAndXPattern(const vector<Individual>& pop, Individual child, int& target, int& p_best_individual,
+    variable& scaling_factor, variable& cross_rate, const vector<Individual>& archive, int& arc_ind_count, interval_pattern pattern);
 
   void updateElite(vector<Individual> & curr_pop, int* sorted_indexes, double *fitness);
 

@@ -213,11 +213,11 @@ void searchAlgorithm::modifySolutionWithParentMedium(Individual child, Individua
   variable l_max_region = max_region;
 
   for (int j = 0; j < l_problem_size; j++) {
-    if (child[j] < l_min_region) {
-      child[j]= (l_min_region + parent[j]) / 2.0;
+    if (child[j] < lower_bounds[j]) {
+      child[j]= (lower_bounds[j] + parent[j]) / 2.0;
     }
-    else if (child[j] > l_max_region) {
-      child[j]= (l_max_region + parent[j]) / 2.0;
+    else if (child[j] > upper_bounds[j]) {
+      child[j]= (upper_bounds[j] + parent[j]) / 2.0;
     }
   }
 }
